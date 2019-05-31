@@ -1,48 +1,48 @@
 package utils
 
-const (
-	UP = iota
-	DOWN
-	LEFT
-	RIGHT
-)
+var Directions = map[string]int{"UP": 0, "DOWN": 1, "LEFT": 2, "RIGHT": 3}
 
-func ReturnPossibleMoves(tab []int) []bool {
-	list := []bool{
-		MoveIsValid(tab, UP),
-		MoveIsValid(tab, DOWN),
-		MoveIsValid(tab, LEFT),
-		MoveIsValid(tab, RIGHT)}
+func ReturnPossibleMoves(tab []int) [][]int {
+	var list [][]int
+	i := 0
+	for i < len(Directions) {
+		if MoveIsValid(tab, i) {
+			list = append(list, Move(tab, i))
+			i++
+		}
+	}
 	return (list)
 }
 
 func MoveIsValid(tab []int, dir int) bool {
 	empty := getEmptyTile(tab)
 
-	if dir == UP && empty > Size {
+	if dir == Directions["UP"] && empty > Size {
 		return (true)
-	} else if dir == DOWN && empty < Size*(Size-1) {
+	} else if dir == Directions["DOWN"] && empty < Size*(Size-1) {
 		return (true)
-	} else if dir == LEFT && empty%Size != 0 {
+	} else if dir == Directions["LEFT"] && empty%Size != 0 {
 		return (true)
-	} else if dir == RIGHT && empty%Size != Size-1 {
+	} else if dir == Directions["RIGHT"] && empty%Size != Size-1 {
 		return (true)
 	}
 	return (false)
 }
 
-func Move(tab []int, dir int) {
+func Move(tab []int, dir int) []int {
 	var dst int = 0
-
-	src := getEmptyTile(tab)
-	if dir == UP {
+	new := make([]int, len(tab))
+	copy(new, tab)
+	src := getEmptyTile(new)
+	if dir == Directions["UP"] {
 		dst = src - Size
-	} else if dir == DOWN {
+	} else if dir == Directions["DOWN"] {
 		dst = src + Size
-	} else if dir == LEFT {
+	} else if dir == Directions["LEFT"] {
 		dst = src - 1
-	} else if dir == RIGHT {
+	} else if dir == Directions["RIGHT"] {
 		dst = src + 1
 	}
-	tab[src], tab[dst] = tab[dst], tab[src]
+	new[src], new[dst] = new[dst], new[src]
+	return (new)
 }

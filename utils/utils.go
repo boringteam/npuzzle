@@ -1,7 +1,9 @@
 package utils
 
-import "fmt"
-import "math"
+import (
+	"fmt"
+	"math"
+)
 
 var Size int = 0
 
