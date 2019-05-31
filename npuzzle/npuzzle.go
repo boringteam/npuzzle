@@ -15,7 +15,13 @@ const (
 )
 
 func main() {
-	simpleAlgoRandomTest()
+	// tab := []int{5, 8, 3, 1, 0, 4, 7, 6, 2}
+	// utils.InitUtils(tab)
+	// result := checker.BuildCorrectResult(utils.Size)
+	// dist := algo.CalculateManhattanDistance(tab, result)
+	// fmt.Println(dist)
+	algo.AStar()
+	// simpleAlgoRandomTest()
 	// simpleNpuzzleTest()
 	// simpleCheckerTest()
 }
