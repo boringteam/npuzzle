@@ -1,0 +1,84 @@
+package utils
+
+import (
+	"fmt"
+	"testing"
+)
+
+func TestMove(t *testing.T) {
+	var res []int
+	a := []int{1, 2, 3, 4, 5, 6, 7, 8, 0}
+	InitUtils(a)
+	Move(a, LEFT)
+	res = []int{1, 2, 3, 4, 5, 6, 7, 0, 8}
+	if fmt.Sprint(res) != fmt.Sprint(a) {
+		t.Errorf("Error: Move left")
+	}
+	Move(a, UP)
+	res = []int{1, 2, 3, 4, 0, 6, 7, 5, 8}
+	if fmt.Sprint(res) != fmt.Sprint(a) {
+		t.Errorf("Error: Move up")
+	}
+	Move(a, RIGHT)
+	res = []int{1, 2, 3, 4, 6, 0, 7, 5, 8}
+	if fmt.Sprint(res) != fmt.Sprint(a) {
+		t.Errorf("Error: Move right")
+	}
+	Move(a, DOWN)
+	res = []int{1, 2, 3, 4, 6, 8, 7, 5, 0}
+	if fmt.Sprint(res) != fmt.Sprint(a) {
+		t.Errorf("Error: Move down")
+	}
+}
+
+func TestMoveIsValid(t *testing.T) {
+	a := []int{1, 2, 3, 4, 5, 6, 7, 8, 0}
+	InitUtils(a)
+	if (MoveIsValid(a, UP)) != true {
+		t.Error("Error: MoveIsValid")
+	}
+	if (MoveIsValid(a, DOWN)) != false {
+		t.Error("Error: MoveIsValid")
+	}
+	if (MoveIsValid(a, LEFT)) != true {
+		t.Error("Error: MoveIsValid")
+	}
+	if (MoveIsValid(a, RIGHT)) != false {
+		t.Error("Error: MoveIsValid")
+	}
+	a = []int{0, 1, 2, 3, 4, 5, 6, 7, 8}
+	InitUtils(a)
+	if (MoveIsValid(a, UP)) != false {
+		t.Error("Error: MoveIsValid")
+	}
+	if (MoveIsValid(a, DOWN)) != true {
+		t.Error("Error: MoveIsValid")
+	}
+	if (MoveIsValid(a, LEFT)) != false {
+		t.Error("Error: MoveIsValid")
+	}
+	if (MoveIsValid(a, RIGHT)) != true {
+		t.Error("Error: MoveIsValid")
+	}
+}
+
+func TestReturnPossibleMoves(t *testing.T) {
+	a := []int{1, 2, 3, 4, 0, 6, 7, 5, 8}
+	InitUtils(a)
+	res := []bool{true, true, true, true}
+	if fmt.Sprint(ReturnPossibleMoves(a)) != fmt.Sprint(res) {
+		t.Error("Error: ReturnPossibleMoves")
+	}
+	a = []int{1, 2, 3, 4, 5, 6, 0, 7, 8}
+	InitUtils(a)
+	res = []bool{true, false, false, true}
+	if fmt.Sprint(ReturnPossibleMoves(a)) != fmt.Sprint(res) {
+		t.Error("Error: ReturnPossibleMoves")
+	}
+	a = []int{1, 2, 0, 3, 4, 5, 6, 7, 8}
+	InitUtils(a)
+	res = []bool{false, true, true, false}
+	if fmt.Sprint(ReturnPossibleMoves(a)) != fmt.Sprint(res) {
+		t.Error("Error: ReturnPossibleMoves")
+	}
+}
