@@ -17,6 +17,8 @@ const (
 func main() {
 	tab := []int{2, 8, 3, 1, 0, 4, 7, 6, 5}
 	utils.InitUtils(tab)
+	utils.PrintTab(tab)
+	fmt.Println("----------------")
 	result := checker.BuildCorrectResult(utils.Size)
 	algo.AStar(tab, result)
 	// simpleAlgoRandomTest()

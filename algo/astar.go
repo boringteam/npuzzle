@@ -16,9 +16,9 @@ func AStar(tab []int, result []int) {
 	n.tab = tab
 	n.F = CalculateManhattanDistance(n.tab, result)
 	openList := []node{n}
-	// closedList := []node{}
+	closedList := []node{}
 
-	// This is just 1 step, but should be done in a loop while len(openList)
+	// This is just 1 step, but should be done in a loop while len(openList). g += 1 each step
 	var possibleMoves [][]int
 	possibleMoves = utils.ReturnPossibleMoves(openList[0].tab)
 	for i := range possibleMoves {
@@ -27,9 +27,13 @@ func AStar(tab []int, result []int) {
 		new.F = CalculateManhattanDistance(new.tab, result)
 		openList = addToList(new, openList)
 	}
+	// todo: remove from openList the one with the smallest F (first because ordered)
+	openList = removeFromList(openList[0], openList)
+	closedList = append(closedList, openList[0])
 
 	//Print openList for test
 	PrintNodeList(openList)
+	PrintNodeList(closedList)
 }
 
 func addToList(new node, openList []node) []node {
@@ -43,6 +47,11 @@ func addToList(new node, openList []node) []node {
 	}
 	openList[len(openList)-1] = new
 	return (openList)
+}
+
+func removeFromList(todelete node, openList []node) []node {
+	//todo
+	return openList
 }
 
 func PrintNodeList(list []node) {
