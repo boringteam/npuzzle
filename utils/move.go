@@ -8,8 +8,8 @@ func ReturnPossibleMoves(tab []int) [][]int {
 	for i < len(Directions) {
 		if MoveIsValid(tab, i) {
 			list = append(list, Move(tab, i))
-			i++
 		}
+		i++
 	}
 	return (list)
 }
