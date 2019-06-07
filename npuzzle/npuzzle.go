@@ -15,7 +15,8 @@ const (
 )
 
 func main() {
-	tab := []int{2, 8, 3, 1, 0, 4, 7, 6, 5}
+	// tab := []int{2, 8, 3, 1, 0, 4, 7, 6, 5}
+	tab := []int{2, 0, 14, 10, 12, 9, 4, 15, 5, 6, 8, 13, 11, 3, 7, 1}
 	utils.InitUtils(tab)
 	utils.PrintTab(tab)
 	fmt.Println("----------------")
