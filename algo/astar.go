@@ -3,6 +3,7 @@ package algo
 import (
 	"fmt"
 	"npuzzle/utils"
+	"os"
 )
 
 type node struct {
@@ -14,30 +15,71 @@ type node struct {
 func AStar(tab []int, result []int) {
 	n := node{}
 	n.tab = tab
-	n.F = CalculateManhattanDistance(n.tab, result)
+	n.H = CalculateManhattanDistance(n.tab, result)
+	n.G = 0
 	openList := []*node{}
 	closedList := []*node{}
 	openList = append(openList, &n)
 
-	// This is just 1 step, but should be done in a loop while len(openList). g += 1 each step
-	current := openList[0]
-	openList = removeFromList(current, openList)
-	var possibleMoves [][]int
-	possibleMoves = utils.ReturnPossibleMoves(current.tab)
-	for i := range possibleMoves {
-		new := node{}
-		new.tab = possibleMoves[i]
-		new.F = CalculateManhattanDistance(new.tab, result)
-		new.parent = current
-		openList = addToList(&new, openList)
+	for len(openList) > 0 {
+			current := openList[0]
+      // current_index = 0
+      for _, item := range openList {
+            if item.F < current.F {
+                current = item
+                // current_index = index
+						}
+			}
+			openList = removeFromList(current, openList)
+			closedList = append(closedList, current)
+			// utils.PrintTab(current.tab)
+			if fmt.Sprint(current.tab) == fmt.Sprint(result) {
+				fmt.Println("On a trouve")
+				utils.PrintTab(current.tab)
+				os.Exit(3)
+			}
+			var possibleMoves [][]int
+			possibleMoves = utils.ReturnPossibleMoves(current.tab)
+			for _, v := range possibleMoves {
+				// fmt.Println("Possible moves:")
+				// utils.PrintTab(v)
+				// if v is in closedList continue
+				if tabInSlice(v, closedList) != nil {
+					continue
+				}
+				new := node{}
+				new.tab = v
+				new.H = CalculateManhattanDistance(new.tab, result)
+				new.G = current.G + 1
+				new.F = new.G + new.H
+				new.parent = current
+				//
+				open_node := tabInSlice(v, openList)
+				if open_node != nil && new.G > open_node.G {
+					continue
+				}
+				openList = append(openList, &new)
+			}
+			// fmt.Println("openList:")
+			// PrintNodeList(openList)
+			// fmt.Println("closedList:")
+			// PrintNodeList(closedList)
+			// fmt.Print("\n\n\n\n")
+
 	}
 
-	// todo: remove from openList the one with the smallest F (first because ordered)
-	closedList = append(closedList, current)
 
 	//Print openList for test
-	PrintNodeList(openList)
-	PrintNodeList(closedList)
+
+}
+
+func tabInSlice(tab []int, list []*node) *node {
+    for _, b := range list {
+        if fmt.Sprint(b.tab) == fmt.Sprint(tab) {
+            return b
+        }
+    }
+    return nil
 }
 
 func addToList(new *node, list []*node) []*node {

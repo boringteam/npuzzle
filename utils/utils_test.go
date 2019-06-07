@@ -89,4 +89,16 @@ func TestReturnPossibleMoves(t *testing.T) {
 	if fmt.Sprint(ReturnPossibleMoves(c)) != fmt.Sprint(res) {
 		t.Error("Error: ReturnPossibleMoves")
 	}
+	d := []int{3, 5, 1, 0, 8, 4, 2, 6, 7}
+	res_up = []int{0, 5, 1, 3, 8, 4, 2, 6, 7}
+	res_down = []int{3, 5, 1, 2, 8, 4, 0, 6, 7}
+	res_right = []int{3, 5, 1, 8, 0, 4, 2, 6, 7}
+	res = [][]int{res_up, res_down, res_right}
+	fmt.Println(ReturnPossibleMoves(d))
+	if fmt.Sprint(ReturnPossibleMoves(d)) != fmt.Sprint(res) {
+		t.Error("Error: ReturnPossibleMoves")
+	}
+
+
+
 }

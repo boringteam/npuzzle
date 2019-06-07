@@ -17,7 +17,7 @@ func ReturnPossibleMoves(tab []int) [][]int {
 func MoveIsValid(tab []int, dir int) bool {
 	empty := getEmptyTile(tab)
 
-	if dir == Directions["UP"] && empty > Size {
+	if dir == Directions["UP"] && empty >= Size {
 		return (true)
 	} else if dir == Directions["DOWN"] && empty < Size*(Size-1) {
 		return (true)
