@@ -5,15 +5,16 @@ import (
 	"math"
 )
 
-var Size int = 0
+var Size int8 = 0
 
-func InitUtils(tab []int) {
-	Size = int(math.Sqrt(float64(len(tab))))
+func InitUtils(tab []int8) {
+	Size = int8(math.Sqrt(float64(len(tab))))
 }
 
-func getEmptyTile(tab []int) int {
-	for i := 0; i < Size*Size; i++ {
-		if tab[i] == 0 {
+func getEmptyTile(tab []int8) int8 {
+	var i int8 = 0
+	for i = 0; i < Size*Size; i++ {
+		if tab[i] == int8(0) {
 			return (i)
 		}
 	}
@@ -21,8 +22,9 @@ func getEmptyTile(tab []int) int {
 	return (-1)
 }
 
-func PrintTab(tab []int) {
-	for tile := 0; tile < Size*Size; tile++ {
+func PrintTab(tab []int8) {
+	var tile int8 = 0
+	for tile = 0; tile < Size*Size; tile++ {
 		if tab[tile] != 0 {
 			fmt.Printf("| %-3d", tab[tile])
 		} else {

@@ -1,11 +1,11 @@
 package utils
 
-var Directions = map[string]int{"UP": 0, "DOWN": 1, "LEFT": 2, "RIGHT": 3}
+var Directions = map[string]int8{"UP": 0, "DOWN": 1, "LEFT": 2, "RIGHT": 3}
 
-func ReturnPossibleMoves(tab []int) [][]int {
-	var list [][]int
-	i := 0
-	for i < len(Directions) {
+func ReturnPossibleMoves(tab []int8) [][]int8 {
+	var list [][]int8
+	var i int8 = 0
+	for i < int8(len(Directions)) {
 		if MoveIsValid(tab, i) {
 			list = append(list, Move(tab, i))
 		}
@@ -14,7 +14,7 @@ func ReturnPossibleMoves(tab []int) [][]int {
 	return (list)
 }
 
-func MoveIsValid(tab []int, dir int) bool {
+func MoveIsValid(tab []int8, dir int8) bool {
 	empty := getEmptyTile(tab)
 
 	if dir == Directions["UP"] && empty >= Size {
@@ -29,9 +29,9 @@ func MoveIsValid(tab []int, dir int) bool {
 	return (false)
 }
 
-func Move(tab []int, dir int) []int {
-	var dst int = 0
-	new := make([]int, len(tab))
+func Move(tab []int8, dir int8) []int8 {
+	var dst int8 = 0
+	new := make([]int8, len(tab))
 	copy(new, tab)
 	src := getEmptyTile(new)
 	if dir == Directions["UP"] {

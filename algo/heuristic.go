@@ -5,23 +5,46 @@ import (
 	"npuzzle/utils"
 )
 
-func CalculateManhattanDistance(tab []int, result []int) int {
-	dist := 0.
-	for i := 0; i < len(tab); i++ {
+func CalculateManhattanDistance(tab []int8, result []int8) int8 {
+	var dist int8 = 0
+	var i int8 = 0
+	var destIndex int8
+	var distRow float64
+	var distCol float64
+
+	for i = 0; i < int8(len(tab)); i++ {
 		if tab[i] != 0 {
-			destIndex := GetIndexOf(tab[i], result)
-			distRow := math.Abs(float64(i/utils.Size - destIndex/utils.Size))
-			distCol := math.Abs(float64(i%utils.Size - destIndex%utils.Size))
-			dist += distRow + distCol
+			destIndex = GetIndexOf(tab[i], result)
+			distRow = math.Abs(float64(i/utils.Size - destIndex/utils.Size))
+			distCol = math.Abs(float64(i%utils.Size - destIndex%utils.Size))
+			dist += int8(distRow + distCol)
 		}
 	}
-	return (int(dist))
+	return (int8(dist))
 }
 
-func GetIndexOf(x int, tab []int) int {
+func CalculateEuclideanDistance(tab []int8, result []int8) int8 {
+	var dist int8 = 0
+	var i int8 = 0
+	var destIndex int8
+	var distRow float64
+	var distCol float64
+
+	for i = 0; i < int8(len(tab)); i++ {
+		if tab[i] != 0 {
+			destIndex = GetIndexOf(tab[i], result)
+			distRow = math.Pow(float64(i/utils.Size-destIndex/utils.Size), 2)
+			distCol = math.Pow(float64(i%utils.Size-destIndex%utils.Size), 2)
+			dist += int8(math.Sqrt(distRow + distCol))
+		}
+	}
+	return (int8(dist))
+}
+
+func GetIndexOf(x int8, tab []int8) int8 {
 	for v := range tab {
 		if tab[v] == x {
-			return (v)
+			return (int8(v))
 		}
 	}
 	return (-1)

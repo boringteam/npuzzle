@@ -5,18 +5,18 @@ import (
 	"npuzzle/utils"
 )
 
-func CheckResult(current []int, correct []int) bool {
+func CheckResult(current []int8, correct []int8) bool {
 	if fmt.Sprint(current) == fmt.Sprint(correct) {
 		return (true)
 	}
 	return (false)
 }
 
-func BuildCorrectResult(size int) []int {
-	tab := make([]int, size*size)
+func BuildCorrectResult(size int8) []int8 {
+	tab := make([]int8, size*size)
 	utils.InitUtils(tab)
 
-	start := 0
+	var start int8 = 0
 	step_len := size
 	for step_len > 0 {
 		start = buildCrown(tab, start, step_len, size)
@@ -30,7 +30,7 @@ func BuildCorrectResult(size int) []int {
 	return (tab)
 }
 
-func buildCrown(tab []int, step_start int, step_len int, total_len int) int {
+func buildCrown(tab []int8, step_start int8, step_len int8, total_len int8) int8 {
 	// Fill top line
 	offset := (total_len - step_len) / 2
 	block_start := offset*total_len + offset
