@@ -13,64 +13,49 @@ type node struct {
 }
 
 func AStar(tab []int8, result []int8) {
-	n := node{}
-	n.tab = tab
-	n.H = CalculateManhattanDistance(n.tab, result)
-	n.G = 0
+	n := createNode(nil, tab, result)
 	openList := []*node{}
 	closedList := []*node{}
-	openList = append(openList, &n)
+	openList = append(openList, n)
 
 	for len(openList) > 0 {
 		current := openList[0]
-		// current_index = 0
-		// for _, item := range openList {
-		// 	if item.F < current.F {
-		// 		current = item
-		// 		// current_index = index
-		// 	}
-		// }
 		openList = removeFromList(current, openList)
 		closedList = append(closedList, current)
-		// utils.PrintTab(current.tab)
 		if fmt.Sprint(current.tab) == fmt.Sprint(result) {
 			fmt.Println("On a trouve")
 			utils.PrintTab(current.tab)
-			os.Exit(3)
+			os.Exit(0)
 		}
-		var possibleMoves [][]int8
-		possibleMoves = utils.ReturnPossibleMoves(current.tab)
+		possibleMoves := utils.ReturnPossibleMoves(current.tab)
 		for _, v := range possibleMoves {
-			// fmt.Println("Possible moves:")
-			// utils.PrintTab(v)
 			// if v is in closedList continue
 			if tabInSlice(v, closedList) != nil {
 				continue
 			}
-			new := node{}
-			new.tab = v
-			new.H = CalculateManhattanDistance(new.tab, result)
-			new.G = current.G + 1
-			new.F = new.G + new.H
-			new.parent = current
-			//
+			new := createNode(current, v, result)
 			open_node := tabInSlice(v, openList)
 			if open_node != nil && new.G > open_node.G {
 				continue
 			}
-			// openList = append(openList, &new)
-			openList = addToList(&new, openList)
+			openList = addToList(new, openList)
+			if len(openList) > 1000 {
+				openList = openList[:1000]
+			}
 		}
-		// fmt.Println("openList:")
-		// PrintNodeList(openList)
-		// fmt.Println("closedList:")
-		// PrintNodeList(closedList)
-		// fmt.Print("\n\n\n\n")
-
 	}
+}
 
-	//Print openList for test
-
+func createNode(parent *node, tab []int8, result []int8) *node {
+	new := node{}
+	new.tab = tab
+	new.H = CalculateManhattanDistance(new.tab, result)
+	new.F = new.G + new.H
+	if parent != nil {
+		new.G = parent.G + 1
+		new.parent = parent
+	}
+	return &new
 }
 
 func tabInSlice(tab []int8, list []*node) *node {
@@ -108,11 +93,15 @@ func removeFromList(todelete *node, list []*node) []*node {
 func PrintNodeList(list []*node) {
 	fmt.Println("Elements in List:")
 	for i := range list {
-		fmt.Printf("Address: %p \n", list[i])
-		fmt.Printf("Parent: %p \n", list[i].parent)
-		fmt.Println("F:", list[i].F)
-		fmt.Println("G:", list[i].G)
-		fmt.Println("H:", list[i].H)
-		utils.PrintTab(list[i].tab)
+		PrintNode(list[i])
 	}
+}
+
+func PrintNode(n *node) {
+	fmt.Printf("Address: %p \n", n)
+	fmt.Printf("Parent: %p \n", n.parent)
+	fmt.Println("F:", n.F)
+	fmt.Println("G:", n.G)
+	fmt.Println("H:", n.H)
+	utils.PrintTab(n.tab)
 }
