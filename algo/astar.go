@@ -24,12 +24,12 @@ func AStar(tab []int8, result []int8) {
 	for len(openList) > 0 {
 		current := openList[0]
 		// current_index = 0
-		for _, item := range openList {
-			if item.F < current.F {
-				current = item
-				// current_index = index
-			}
-		}
+		// for _, item := range openList {
+		// 	if item.F < current.F {
+		// 		current = item
+		// 		// current_index = index
+		// 	}
+		// }
 		openList = removeFromList(current, openList)
 		closedList = append(closedList, current)
 		// utils.PrintTab(current.tab)
@@ -58,7 +58,8 @@ func AStar(tab []int8, result []int8) {
 			if open_node != nil && new.G > open_node.G {
 				continue
 			}
-			openList = append(openList, &new)
+			// openList = append(openList, &new)
+			openList = addToList(&new, openList)
 		}
 		// fmt.Println("openList:")
 		// PrintNodeList(openList)
