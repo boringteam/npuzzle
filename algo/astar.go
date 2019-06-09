@@ -8,11 +8,11 @@ import (
 
 type node struct {
 	parent  *node
-	F, G, H int8
-	tab     []int8
+	F, G, H int16
+	tab     []int16
 }
 
-func AStar(tab []int8, result []int8) {
+func AStar(tab []int16, result []int16) {
 	n := createNode(nil, tab, result)
 	openList := []*node{}
 	closedList := []*node{}
@@ -46,7 +46,7 @@ func AStar(tab []int8, result []int8) {
 	}
 }
 
-func createNode(parent *node, tab []int8, result []int8) *node {
+func createNode(parent *node, tab []int16, result []int16) *node {
 	new := node{}
 	new.tab = tab
 	new.H = CalculateManhattanDistance(new.tab, result)
@@ -58,7 +58,7 @@ func createNode(parent *node, tab []int8, result []int8) *node {
 	return &new
 }
 
-func tabInSlice(tab []int8, list []*node) *node {
+func tabInSlice(tab []int16, list []*node) *node {
 	for _, b := range list {
 		if fmt.Sprint(b.tab) == fmt.Sprint(tab) {
 			return b

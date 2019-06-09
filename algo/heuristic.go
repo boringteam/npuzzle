@@ -5,47 +5,47 @@ import (
 	"npuzzle/utils"
 )
 
-func CalculateManhattanDistance(tab []int8, result []int8) int8 {
-	var dist int8 = 0
-	var i int8 = 0
-	var destIndex int8
+func CalculateManhattanDistance(tab []int16, result []int16) int16 {
+	var dist int16 = 0
+	var i int16 = 0
+	var destIndex int16
 	var distRow float64
 	var distCol float64
 
-	for i = 0; i < int8(len(tab)); i++ {
+	for i = 0; i < int16(len(tab)); i++ {
 		if tab[i] != 0 {
 			destIndex = GetIndexOf(tab[i], result)
 			distRow = math.Abs(float64(i/utils.Size - destIndex/utils.Size))
 			distCol = math.Abs(float64(i%utils.Size - destIndex%utils.Size))
-			dist += int8(distRow + distCol)
+			dist += int16(distRow + distCol)
 		}
 	}
-	return (int8(dist))
+	return (int16(dist))
 }
 
-func CalculateEuclideanDistance(tab []int8, result []int8) int8 {
-	var dist int8 = 0
-	var i int8 = 0
-	var destIndex int8
+func CalculateEuclideanDistance(tab []int16, result []int16) int16 {
+	var dist int16 = 0
+	var i int16 = 0
+	var destIndex int16
 	var distRow float64
 	var distCol float64
 
-	for i = 0; i < int8(len(tab)); i++ {
+	for i = 0; i < int16(len(tab)); i++ {
 		if tab[i] != 0 {
 			destIndex = GetIndexOf(tab[i], result)
 			distRow = math.Pow(float64(i/utils.Size-destIndex/utils.Size), 2)
 			distCol = math.Pow(float64(i%utils.Size-destIndex%utils.Size), 2)
-			dist += int8(math.Sqrt(distRow + distCol))
+			dist += int16(math.Sqrt(distRow + distCol))
 		}
 	}
-	return (int8(dist))
+	return (int16(dist))
 }
 
-func GetIndexOf(x int8, tab []int8) int8 {
+func GetIndexOf(x int16, tab []int16) int16 {
 	for v := range tab {
 		if tab[v] == x {
-			return (int8(v))
+			return (int16(v))
 		}
 	}
-	return (-1)
+	return -1
 }
