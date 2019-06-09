@@ -17,13 +17,20 @@ func AStar(tab []int16, result []int16) {
 	openList := []*node{}
 	closedList := []*node{}
 	openList = append(openList, n)
+	timeComplexity := 0
+	sizeComplexity := 0
+	sizeComplexityMax := 0
 
 	for len(openList) > 0 {
 		current := openList[0]
 		openList = removeFromList(current, openList)
+		sizeComplexity--
 		closedList = append(closedList, current)
 		if fmt.Sprint(current.tab) == fmt.Sprint(result) {
 			fmt.Println("On a trouve")
+			fmt.Println("Size complexity:     ", sizeComplexity)
+			fmt.Println("Size complexity Max: ", sizeComplexityMax)
+			fmt.Println("Time complexity:     ", timeComplexity)
 			utils.PrintTab(current.tab)
 			os.Exit(0)
 		}
@@ -39,6 +46,11 @@ func AStar(tab []int16, result []int16) {
 				continue
 			}
 			openList = addToList(new, openList)
+			sizeComplexity++
+			timeComplexity++
+			if sizeComplexity > sizeComplexityMax {
+				sizeComplexityMax = sizeComplexity
+			}
 			if len(openList) > 1000 {
 				openList = openList[:1000]
 			}
