@@ -35,3 +35,9 @@ func PrintTab(tab []int16) {
 	}
 	fmt.Printf("-\n")
 }
+
+// func getRandomNumber(max int) int16 {
+// 	s1 := rand.NewSource(time.Now().UnixNano())
+// 	r1 := rand.New(s1)
+// 	return (int16(r1.Intn(max)))
+// }

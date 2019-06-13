@@ -3,44 +3,45 @@ package main
 import (
 	"fmt"
 	"github.com/akamensky/argparse"
+  "npuzzle/utils"
+  "npuzzle/checker"
 	"os"
   "strconv"
   "math/rand"
   "time"
 )
 
-func makePuzzle(size int, solvable bool) []int {
-    fmt.Println(size, solvable)
-    tab := makeRange(0, size*size)
-    Shuffle(tab)
-    //Todo: add solvable / unsolvable logic
+func makePuzzle(size int, solvable bool, iterations int) []int16 {
+    fmt.Println(size, solvable, iterations)
+    tab := checker.BuildCorrectResult(int16(size))
+    for iter := 0; iter < iterations; iter ++ {
+        r := getRandomNumber(4)
+        if utils.MoveIsValid(tab, r) {
+          tab = utils.Move(tab, r)
+        } else {
+          iter--
+        }
+    }
+    if solvable == false {
+      //to do: add forbidden move
+    }
     return tab
   }
 
-  func makeRange(min, max int) []int {
-      a := make([]int, max-min+1)
-      for i := range a {
-          a[i] = min + i
-      }
-      return a
-  }
-
-func Shuffle(slice []int) {
-	r := rand.New(rand.NewSource(time.Now().Unix()))
-	for len(slice) > 0 {
-		n := len(slice)
-		randIndex := r.Intn(n)
-		slice[n-1], slice[randIndex] = slice[randIndex], slice[n-1]
-		slice = slice[:n-1]
-	}
+func getRandomNumber(max int) int16 {
+  s1 := rand.NewSource(time.Now().UnixNano())
+  r1 := rand.New(s1)
+  return (int16(r1.Intn(max)))
 }
 
-func GenerateNPuzzle() []int {
+func GenerateNPuzzle() []int16 {
   var solvable bool = false
 	parser := argparse.NewParser("npuzzle", "Prints provided string to stdout")
-  n := parser.String("n", "size", &argparse.Options{Required: true, Help: "Size of the N-puzzle's side. Must be >3."})
+  n := parser.String("n", "size", &argparse.Options{Required: true, Help: "Size of the N-puzzle's side. Must be >= 3."})
 	s := parser.Flag("s", "solvable", &argparse.Options{Help: "Forces generation of a solvable puzzle. Overrides -u."})
   u := parser.Flag("u", "unsolvable", &argparse.Options{Help: "Forces generation of an unsolvable puzzle"})
+  i := parser.String("i", "iterations", &argparse.Options{Help: "Number of iterations to shuffle the puzzle"})
+
 
   // Parse input
 	err := parser.Parse(os.Args)
@@ -60,7 +61,7 @@ func GenerateNPuzzle() []int {
     os.Exit(1)
   }
   if size < 3 {
-    fmt.Println("Can't generate a puzzle with size lower than 2. It says so in the help. Dummy.")
+    fmt.Println("Can't generate a puzzle with size lower than 3. It says so in the help. Dummy.")
     os.Exit(1)
   }
   if *s {
@@ -71,6 +72,10 @@ func GenerateNPuzzle() []int {
     // solvable is now randomly true or false
     solvable = rand.Float32() < 0.5
   }
-  puzzle := makePuzzle(size, solvable)
+  iterations, err := strconv.Atoi(*i)
+  if err != nil {
+    iterations = 100
+  }
+  puzzle := makePuzzle(size, solvable, iterations)
   return puzzle
 }
