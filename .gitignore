@@ -10,3 +10,9 @@
 
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
+
+#npuzzle
+npuzzle
+n-puzzle
+*.pdf
+.DS_Store

@@ -1,22 +1,22 @@
 package checker
 
 import (
-	"fmt"
 	"npuzzle/utils"
+	"reflect"
 )
 
-func CheckResult(current []int, correct []int) bool {
-	if fmt.Sprint(current) == fmt.Sprint(correct) {
+func CheckResult(current []int16, correct []int16) bool {
+	if reflect.DeepEqual(current, correct) {
 		return (true)
 	}
 	return (false)
 }
 
-func BuildCorrectResult(size int) []int {
-	tab := make([]int, size*size)
+func BuildCorrectResult(size int16) []int16 {
+	tab := make([]int16, size*size)
 	utils.InitUtils(tab)
 
-	start := 0
+	var start int16 = 0
 	step_len := size
 	for step_len > 0 {
 		start = buildCrown(tab, start, step_len, size)
@@ -30,7 +30,7 @@ func BuildCorrectResult(size int) []int {
 	return (tab)
 }
 
-func buildCrown(tab []int, step_start int, step_len int, total_len int) int {
+func buildCrown(tab []int16, step_start int16, step_len int16, total_len int16) int16 {
 	// Fill top line
 	offset := (total_len - step_len) / 2
 	block_start := offset*total_len + offset
