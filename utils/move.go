@@ -15,7 +15,7 @@ func ReturnPossibleMoves(tab []int16) [][]int16 {
 }
 
 func MoveIsValid(tab []int16, dir int16) bool {
-	empty := getEmptyTile(tab)
+	empty := GetEmptyTile(tab)
 
 	if dir == Directions["UP"] && empty >= Size {
 		return (true)
@@ -33,7 +33,7 @@ func Move(tab []int16, dir int16) []int16 {
 	var dst int16 = 0
 	new := make([]int16, len(tab))
 	copy(new, tab)
-	src := getEmptyTile(new)
+	src := GetEmptyTile(new)
 	if dir == Directions["UP"] {
 		dst = src - Size
 	} else if dir == Directions["DOWN"] {

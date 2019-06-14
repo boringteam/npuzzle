@@ -3,6 +3,8 @@ package utils
 import (
 	"fmt"
 	"math"
+	"math/rand"
+	"time"
 )
 
 var Size int16 = 0
@@ -11,7 +13,7 @@ func InitUtils(tab []int16) {
 	Size = int16(math.Sqrt(float64(len(tab))))
 }
 
-func getEmptyTile(tab []int16) int16 {
+func GetEmptyTile(tab []int16) int16 {
 	var i int16 = 0
 	for i = 0; i < Size*Size; i++ {
 		if tab[i] == int16(0) {
@@ -34,4 +36,10 @@ func PrintTab(tab []int16) {
 		}
 	}
 	fmt.Printf("-\n")
+}
+
+func GetRandomNumber(max int) int16 {
+	s1 := rand.NewSource(time.Now().UnixNano())
+	r1 := rand.New(s1)
+	return (int16(r1.Intn(max)))
 }
