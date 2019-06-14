@@ -29,7 +29,8 @@ func main() {
 	// //Hardcore test many ()
 	// tab := []int16{0, 15, 14, 13, 5, 4, 3, 12, 6, 2, 1, 11, 7, 8, 9, 10}
 	// tab := []int{2, 8, 3, 1, 0, 4, 7, 6, 5}
-	tab := GenerateNPuzzle()
+	tab := []int16{3, 6, 8, 2, 0, 5, 4, 7, 1}
+	// tab := GenerateNPuzzle()
 	utils.InitUtils(tab)
 	for iter := 0; iter < 1000; iter++ {
 		r := getRandomNumber(4)
@@ -43,8 +44,9 @@ func main() {
 	utils.PrintTab(tab)
 	fmt.Println("----------------")
 	result := checker.BuildCorrectResult(utils.Size)
-	utils.PrintTab(result)
-	algo.AStar(tab, result)
+	boolean := checker.CheckSolvable(tab, result, utils.Size)
+	fmt.Println(boolean)
+	// algo.AStar(tab, result)
 	// simpleAlgoRandomTest()
 	// simpleNpuzzleTest()
 	// simpleCheckerTest()

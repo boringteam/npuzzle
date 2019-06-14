@@ -15,7 +15,7 @@ func makePuzzle(size int, solvable bool, iterations int) []int16 {
     fmt.Println(size, solvable, iterations)
     tab := checker.BuildCorrectResult(int16(size))
     for iter := 0; iter < iterations; iter ++ {
-        r := getRandomNumber(4)
+        r := utils.GetRandomNumber(4)
         if utils.MoveIsValid(tab, r) {
           tab = utils.Move(tab, r)
         } else {
@@ -23,16 +23,14 @@ func makePuzzle(size int, solvable bool, iterations int) []int16 {
         }
     }
     if solvable == false {
-      //to do: add forbidden move
+      if tab[0] != 0 && tab[1] != 0 {
+        tab[0], tab[1] = tab[1], tab[0]
+      } else {
+        tab[len(tab)-1], tab[len(tab) -2] = tab[len(tab)-2], tab[len(tab) -1]
+      }
     }
     return tab
   }
-
-func getRandomNumber(max int) int16 {
-  s1 := rand.NewSource(time.Now().UnixNano())
-  r1 := rand.New(s1)
-  return (int16(r1.Intn(max)))
-}
 
 func GenerateNPuzzle() []int16 {
   var solvable bool = false

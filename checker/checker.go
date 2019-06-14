@@ -12,6 +12,30 @@ func CheckResult(current []int16, correct []int16) bool {
 	return (false)
 }
 
+func countInversions(tab []int16) int16 {
+	inversions := 0
+	for i, v := range tab {
+		for a := i + 1; a < len(tab); a++ {
+			if tab[a] != 0 && v > tab[a] {
+				inversions++
+			}
+		}
+	}
+	fmt.Println(inversions)
+	return int16(inversions)
+
+}
+
+func CheckSolvable(givenTab []int16, correct []int16, size int16) bool {
+	inversions_correct := countInversions(correct)
+	inversions := countInversions(givenTab)
+	if size % 2 == 0 {
+		inversions_correct += utils.GetEmptyTile(correct)
+		inversions += utils.GetEmptyTile(givenTab)
+	}
+	return inversions % 2 == inversions_correct % 2
+}
+
 func BuildCorrectResult(size int16) []int16 {
 	tab := make([]int16, size*size)
 	utils.InitUtils(tab)

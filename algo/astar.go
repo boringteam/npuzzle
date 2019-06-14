@@ -31,6 +31,7 @@ func AStar(tab []int16, result []int16) {
 		for new := range ch {
 			for _, v := range new {
 				openList = addToList(v, openList)
+
 			}
 			// if len(openList) > 10000 {
 			// 	openList = openList[:9800]
