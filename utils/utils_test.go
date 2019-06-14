@@ -2,6 +2,7 @@ package utils
 
 import (
 	"fmt"
+	"reflect"
 	"testing"
 )
 
@@ -11,22 +12,22 @@ func TestMove(t *testing.T) {
 	InitUtils(a)
 	b := Move(a, Directions["LEFT"])
 	res = []int16{1, 2, 3, 4, 5, 6, 7, 0, 8}
-	if fmt.Sprint(res) != fmt.Sprint(b) {
+	if !reflect.DeepEqual(res, b) {
 		t.Errorf("Error: Move left")
 	}
 	c := Move(b, Directions["UP"])
 	res = []int16{1, 2, 3, 4, 0, 6, 7, 5, 8}
-	if fmt.Sprint(res) != fmt.Sprint(c) {
+	if !reflect.DeepEqual(res, c) {
 		t.Errorf("Error: Move up")
 	}
 	d := Move(c, Directions["RIGHT"])
 	res = []int16{1, 2, 3, 4, 6, 0, 7, 5, 8}
-	if fmt.Sprint(res) != fmt.Sprint(d) {
+	if !reflect.DeepEqual(res, d) {
 		t.Errorf("Error: Move right")
 	}
 	e := Move(d, Directions["DOWN"])
 	res = []int16{1, 2, 3, 4, 6, 8, 7, 5, 0}
-	if fmt.Sprint(res) != fmt.Sprint(e) {
+	if !reflect.DeepEqual(res, e) {
 		t.Errorf("Error: Move down")
 	}
 }
@@ -70,7 +71,7 @@ func TestReturnPossibleMoves(t *testing.T) {
 	res_left := []int16{1, 2, 3, 0, 4, 6, 7, 5, 8}
 	res_right := []int16{1, 2, 3, 4, 6, 0, 7, 5, 8}
 	res := [][]int16{res_up, res_down, res_left, res_right}
-	if fmt.Sprint(ReturnPossibleMoves(a)) != fmt.Sprint(res) {
+	if !reflect.DeepEqual(ReturnPossibleMoves(a), res) {
 		t.Error("Error: ReturnPossibleMoves")
 	}
 	b := []int16{1, 2, 0, 4, 3, 6, 7, 5, 8}
@@ -78,7 +79,7 @@ func TestReturnPossibleMoves(t *testing.T) {
 	res_down = []int16{1, 2, 6, 4, 3, 0, 7, 5, 8}
 	res_left = []int16{1, 0, 2, 4, 3, 6, 7, 5, 8}
 	res = [][]int16{res_down, res_left}
-	if fmt.Sprint(ReturnPossibleMoves(b)) != fmt.Sprint(res) {
+	if !reflect.DeepEqual(ReturnPossibleMoves(b), res) {
 		t.Error("Error: ReturnPossibleMoves")
 	}
 	c := []int16{1, 2, 3, 4, 7, 6, 0, 5, 8}
@@ -86,7 +87,7 @@ func TestReturnPossibleMoves(t *testing.T) {
 	res_up = []int16{1, 2, 3, 0, 7, 6, 4, 5, 8}
 	res_right = []int16{1, 2, 3, 4, 7, 6, 5, 0, 8}
 	res = [][]int16{res_up, res_right}
-	if fmt.Sprint(ReturnPossibleMoves(c)) != fmt.Sprint(res) {
+	if !reflect.DeepEqual(ReturnPossibleMoves(c), res) {
 		t.Error("Error: ReturnPossibleMoves")
 	}
 	d := []int16{3, 5, 1, 0, 8, 4, 2, 6, 7}
@@ -95,7 +96,7 @@ func TestReturnPossibleMoves(t *testing.T) {
 	res_right = []int16{3, 5, 1, 8, 0, 4, 2, 6, 7}
 	res = [][]int16{res_up, res_down, res_right}
 	fmt.Println(ReturnPossibleMoves(d))
-	if fmt.Sprint(ReturnPossibleMoves(d)) != fmt.Sprint(res) {
+	if !reflect.DeepEqual(ReturnPossibleMoves(d), res) {
 		t.Error("Error: ReturnPossibleMoves")
 	}
 

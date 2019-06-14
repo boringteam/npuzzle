@@ -1,12 +1,12 @@
 package checker
 
 import (
-	"fmt"
 	"npuzzle/utils"
+	"reflect"
 )
 
 func CheckResult(current []int16, correct []int16) bool {
-	if fmt.Sprint(current) == fmt.Sprint(correct) {
+	if reflect.DeepEqual(current, correct) {
 		return (true)
 	}
 	return (false)

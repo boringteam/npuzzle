@@ -20,12 +20,17 @@ func main() {
 	// tab := []int{8, 2, 5, 1, 6, 3, 0, 4, 7}
 	// tab := []int{1, 2, 3, 8, 4, 5, 7, 6, 0}
 	// tab := []int16{1, 2, 3, 8, 0, 4, 7, 6, 5}
-	// tab := []int16{1, 2, 3, 4, 12, 13, 14, 5, 11, 15, 6, 0, 10, 9, 8, 7}
+	tab := []int16{1, 2, 3, 4, 12, 13, 14, 5, 11, 15, 6, 0, 10, 9, 8, 7}
+	// tab := []int16{8, 14, 15, 11, 0, 13, 7, 3, 12, 10, 2, 4, 1, 5, 9, 6}
 	// tab := []int16{1, 2, 4, 6, 12, 13, 8, 3, 11, 15, 14, 7, 0, 10, 5, 9}
 	// tab := []int16{6, 13, 8, 0, 14, 5, 7, 2, 9, 15, 3, 10, 4, 11, 1, 12}
-	tab := []int16{1, 2, 3, 4, 5, 16, 17, 18, 19, 6, 15, 24, 0, 20, 7, 14, 23, 22, 21, 8, 13, 12, 11, 10, 9}
+	// tab := []int16{1, 2, 3, 4, 5, 16, 17, 18, 19, 6, 15, 24, 0, 20, 7, 14, 23, 22, 21, 8, 13, 12, 11, 10, 9}
+
+	// //Hardcore test many ()
+	// tab := []int16{0, 15, 14, 13, 5, 4, 3, 12, 6, 2, 1, 11, 7, 8, 9, 10}
+
 	utils.InitUtils(tab)
-	for iter := 0; iter < 100; iter++ {
+	for iter := 0; iter < 1000; iter++ {
 		r := getRandomNumber(4)
 		if utils.MoveIsValid(tab, r) {
 			tab = utils.Move(tab, r)
@@ -42,6 +47,7 @@ func main() {
 	// simpleAlgoRandomTest()
 	// simpleNpuzzleTest()
 	// simpleCheckerTest()
+
 }
 
 func getRandomNumber(max int) int16 {

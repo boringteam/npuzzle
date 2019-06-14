@@ -3,7 +3,9 @@ package algo
 import (
 	"fmt"
 	"npuzzle/utils"
-	"os"
+	"reflect"
+	"runtime"
+	"time"
 )
 
 type node struct {
@@ -13,49 +15,73 @@ type node struct {
 }
 
 func AStar(tab []int16, result []int16) {
+	runtime.GOMAXPROCS(30)
+	startTime := time.Now()
 	n := createNode(nil, tab, result)
 	openList := []*node{}
 	closedList := []*node{}
 	openList = append(openList, n)
-	timeComplexity := 0
-	sizeComplexity := 0
-	sizeComplexityMax := 0
+	ch := make(chan []*node)
+	rounds := 0
+	maxLen := 0
+	running := true
 
-	for len(openList) > 0 {
-		current := openList[0]
-		openList = removeFromList(current, openList)
-		sizeComplexity--
-		closedList = append(closedList, current)
-		if fmt.Sprint(current.tab) == fmt.Sprint(result) {
-			fmt.Println("On a trouve")
-			fmt.Println("Size complexity:     ", sizeComplexity)
-			fmt.Println("Size complexity Max: ", sizeComplexityMax)
-			fmt.Println("Time complexity:     ", timeComplexity)
-			utils.PrintTab(current.tab)
-			os.Exit(0)
+	go func(ch <-chan []*node) {
+		for new := range ch {
+			for _, v := range new {
+				openList = addToList(v, openList)
+			}
+			// if len(openList) > 10000 {
+			// 	openList = openList[:9800]
+			// }
 		}
-		possibleMoves := utils.ReturnPossibleMoves(current.tab)
-		for _, v := range possibleMoves {
-			// if v is in closedList continue
-			if tabInSlice(v, closedList) != nil {
-				continue
+	}(ch)
+
+	for running == true {
+		// fmt.Println("ROUND")
+		time.Sleep(time.Millisecond * 1)
+		if len(openList) > 0 {
+			rounds++
+			currentLen := len(openList)
+			if currentLen >= maxLen {
+				maxLen = currentLen
 			}
-			new := createNode(current, v, result)
-			open_node := tabInSlice(v, openList)
-			if open_node != nil && new.G > open_node.G {
-				continue
+			current := openList[0]
+			openList = removeFromList(current, openList)
+			closedList = append(closedList, current)
+			if reflect.DeepEqual(current.tab, result) {
+				endSearch(current, rounds, startTime, maxLen)
+				running = false
 			}
-			openList = addToList(new, openList)
-			sizeComplexity++
-			timeComplexity++
-			if sizeComplexity > sizeComplexityMax {
-				sizeComplexityMax = sizeComplexity
-			}
-			if len(openList) > 1000 {
-				openList = openList[:1000]
-			}
+			possibleMoves := utils.ReturnPossibleMoves(current.tab)
+
+			go func(ch chan<- []*node, possibleMoves [][]int16) {
+				new_list := []*node{}
+				for _, v := range possibleMoves {
+					// if v is in closedList continue
+					if tabInSlice(v, closedList) != nil {
+						continue
+					}
+					open_node := tabInSlice(v, openList)
+					new := createNode(current, v, result)
+					if open_node != nil && new.G > open_node.G {
+						continue
+					}
+					new_list = append(new_list, new)
+				}
+				ch <- new_list
+			}(ch, possibleMoves)
 		}
+		// wg.Wait()
 	}
+}
+
+func endSearch(current *node, rounds int, startTime time.Time, maxLen int) {
+	fmt.Println("On a trouve!")
+	fmt.Println("Iterations:", rounds)
+	fmt.Println("Max length openList:", maxLen)
+	utils.PrintTab(current.tab)
+	fmt.Println("Algo Duration: ", time.Now().Sub(startTime))
 }
 
 func createNode(parent *node, tab []int16, result []int16) *node {
@@ -72,7 +98,7 @@ func createNode(parent *node, tab []int16, result []int16) *node {
 
 func tabInSlice(tab []int16, list []*node) *node {
 	for _, b := range list {
-		if fmt.Sprint(b.tab) == fmt.Sprint(tab) {
+		if reflect.DeepEqual(tab, b.tab) {
 			return b
 		}
 	}
