@@ -2,12 +2,10 @@ package main
 
 import (
 	"fmt"
-	"math/rand"
 	"os"
 	"npuzzle/algo"
 	"npuzzle/checker"
 	"npuzzle/utils"
-	"time"
 )
 
 const (
@@ -33,15 +31,6 @@ func main() {
 	// tab := []int16{3, 6, 8, 2, 0, 5, 4, 7, 1}
 	tab := GenerateNPuzzle()
 	utils.InitUtils(tab)
-	for iter := 0; iter < 1000; iter++ {
-		r := getRandomNumber(4)
-		if utils.MoveIsValid(tab, r) {
-			tab = utils.Move(tab, r)
-		} else {
-			iter--
-		}
-	}
-
 	utils.PrintTab(tab)
 	fmt.Println("----------------")
 	result := checker.BuildCorrectResult(utils.Size)
@@ -52,69 +41,56 @@ func main() {
 	}
 	fmt.Println(isSolvable)
 	algo.AStar(tab, result)
-	// simpleAlgoRandomTest()
 	// simpleNpuzzleTest()
 	// simpleCheckerTest()
 
 }
 
-func getRandomNumber(max int) int16 {
-	s1 := rand.NewSource(time.Now().UnixNano())
-	r1 := rand.New(s1)
-	return (int16(r1.Intn(max)))
-}
-
-func simpleAlgoRandomTest() {
-	tab := []int16{2, 8, 3, 1, 0, 4, 7, 6, 5}
-	// tab := []int{2, 0, 14, 10, 12, 9, 4, 15, 5, 6, 8, 13, 11, 3, 7, 1}
-	utils.InitUtils(tab)
-	algo.LaunchAlgoRandom(tab)
-}
 
 func simpleNpuzzleTest() {
 	tab := []int16{2, 8, 3, 1, 0, 4, 7, 6, 5}
 	utils.InitUtils(tab)
 	fmt.Println("Starting npuzzle board")
 	utils.PrintTab(tab)
-	correct := checker.BuildCorrectResult(utils.Size)
+	result := checker.BuildCorrectResult(utils.Size)
 	fmt.Println("Expected result board")
-	utils.PrintTab(correct)
+	utils.PrintTab(result)
 	// Step UP
 	fmt.Println("\n === Step 1 (UP)")
 	utils.Move(tab, UP)
 	utils.PrintTab(tab)
-	fmt.Println("Is solved: ", checker.CheckResult(tab, correct))
+	fmt.Println("Is solved: ", checker.CheckResult(tab, result))
 	// Step LEFT
 	fmt.Println("\n === Step 2 (LEFT)")
 	utils.Move(tab, LEFT)
 	utils.PrintTab(tab)
-	fmt.Println("Is solved: ", checker.CheckResult(tab, correct))
+	fmt.Println("Is solved: ", checker.CheckResult(tab, result))
 	// Step DOWN
 	fmt.Println("\n === Step 3 (DOWN)")
 	utils.Move(tab, DOWN)
 	utils.PrintTab(tab)
-	fmt.Println("Is solved: ", checker.CheckResult(tab, correct))
+	fmt.Println("Is solved: ", checker.CheckResult(tab, result))
 	// Step RIGHT
 	fmt.Println("\n === Step 4 (RIGHT)")
 	utils.Move(tab, RIGHT)
 	utils.PrintTab(tab)
-	fmt.Println("Is solved: ", checker.CheckResult(tab, correct))
+	fmt.Println("Is solved: ", checker.CheckResult(tab, result))
 }
 
 func simpleCheckerTest() {
-	correct := checker.BuildCorrectResult(2)
-	utils.InitUtils(correct)
-	utils.PrintTab(correct)
-	correct = checker.BuildCorrectResult(3)
-	utils.InitUtils(correct)
-	utils.PrintTab(correct)
-	correct = checker.BuildCorrectResult(4)
-	utils.InitUtils(correct)
-	utils.PrintTab(correct)
-	correct = checker.BuildCorrectResult(5)
-	utils.InitUtils(correct)
-	utils.PrintTab(correct)
-	correct = checker.BuildCorrectResult(20)
-	utils.InitUtils(correct)
-	utils.PrintTab(correct)
+	result := checker.BuildCorrectResult(2)
+	utils.InitUtils(result)
+	utils.PrintTab(result)
+	result = checker.BuildCorrectResult(3)
+	utils.InitUtils(result)
+	utils.PrintTab(result)
+	result = checker.BuildCorrectResult(4)
+	utils.InitUtils(result)
+	utils.PrintTab(result)
+	result = checker.BuildCorrectResult(5)
+	utils.InitUtils(result)
+	utils.PrintTab(result)
+	result = checker.BuildCorrectResult(20)
+	utils.InitUtils(result)
+	utils.PrintTab(result)
 }

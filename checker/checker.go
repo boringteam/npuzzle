@@ -5,8 +5,8 @@ import (
 	"reflect"
 )
 
-func CheckResult(current []int16, correct []int16) bool {
-	if reflect.DeepEqual(current, correct) {
+func CheckResult(current []int16, result []int16) bool {
+	if reflect.DeepEqual(current, result) {
 		return (true)
 	}
 	return (false)
@@ -25,14 +25,14 @@ func countInversions(tab []int16) int16 {
 
 }
 
-func CheckSolvable(givenTab []int16, correct []int16, size int16) bool {
-	inversions_correct := countInversions(correct)
+func CheckSolvable(givenTab []int16, result []int16, size int16) bool {
+	inversions_result := countInversions(result)
 	inversions := countInversions(givenTab)
 	if size % 2 == 0 {
-		inversions_correct += utils.GetEmptyTile(correct)
+		inversions_result += utils.GetEmptyTile(result)
 		inversions += utils.GetEmptyTile(givenTab)
 	}
-	return inversions % 2 == inversions_correct % 2
+	return inversions % 2 == inversions_result % 2
 }
 
 func BuildCorrectResult(size int16) []int16 {
