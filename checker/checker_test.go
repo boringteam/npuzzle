@@ -57,7 +57,7 @@ func TestCheckSolvable(t *testing.T) {
 	if boolean != true {
 		t.Errorf("Error: this puzzle should be solvable")
 	}
-	correctTen:= BuildCorrectResult(10)
+	correctTen := BuildCorrectResult(10)
 	tabSolvableTen := []int16{
 		2, 39, 42, 86, 44, 70, 66, 69, 11, 8, 64, 84,
 		67, 38, 7, 88, 43, 45, 71, 10, 37, 0, 40,
@@ -70,10 +70,25 @@ func TestCheckSolvable(t *testing.T) {
 		60, 57, 55, 54, 24, 99, 81, 51, 50, 17,
 		28, 27, 26, 25, 23, 22, 21, 19, 20, 18,
 	}
-	fmt.Println(tabSolvableTen, len(tabSolvableTen))
 	boolean = CheckSolvable(tabSolvableTen, correctTen, 10)
 	if boolean != true {
 		t.Errorf("Error: this puzzle should be solvable")
+	}
+	tabUnsolvableTen := []int16{
+		38, 2, 4, 8, 9, 42, 46, 11, 47, 10,
+  		1, 66, 37, 6, 41, 3, 44, 71, 45, 13,
+ 		64, 65, 39, 7, 5, 90, 86, 69, 12, 48,
+ 		36, 35, 84, 93, 87, 40, 70, 68, 43, 14,
+ 		34,  33, 85, 62, 88, 89, 67, 73, 72, 49,
+ 		32,  83, 63, 96, 99, 78, 52, 18, 74, 17,
+ 		61,   0, 82, 81, 98, 97, 95, 91, 20, 77,
+ 		31,  59, 57, 80, 92, 79, 53, 75, 51, 19,
+ 		30,  29, 60, 23, 25, 56, 24, 94, 15, 76,
+ 		28,  58, 27, 26, 55, 54, 21, 22, 16, 50,
+	}
+	boolean = CheckSolvable(tabUnsolvableTen, correctTen, 10)
+	if boolean != false {
+		t.Errorf("Error: this puzzle should not be solvable")
 	}
 
 }

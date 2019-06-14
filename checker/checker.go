@@ -21,7 +21,6 @@ func countInversions(tab []int16) int16 {
 			}
 		}
 	}
-	fmt.Println(inversions)
 	return int16(inversions)
 
 }
