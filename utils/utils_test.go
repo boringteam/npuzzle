@@ -1,7 +1,6 @@
 package utils
 
 import (
-	"fmt"
 	"reflect"
 	"testing"
 )
@@ -78,7 +77,7 @@ func TestReturnPossibleMoves(t *testing.T) {
 	InitUtils(b)
 	res_down = []int16{1, 2, 6, 4, 3, 0, 7, 5, 8}
 	res_left = []int16{1, 0, 2, 4, 3, 6, 7, 5, 8}
-	res = [][]int16{res_down, res_left}
+	res = [][]int16{[]int16{}, res_down, res_left, []int16{}}
 	if !reflect.DeepEqual(ReturnPossibleMoves(b), res) {
 		t.Error("Error: ReturnPossibleMoves")
 	}
@@ -86,7 +85,7 @@ func TestReturnPossibleMoves(t *testing.T) {
 	InitUtils(c)
 	res_up = []int16{1, 2, 3, 0, 7, 6, 4, 5, 8}
 	res_right = []int16{1, 2, 3, 4, 7, 6, 5, 0, 8}
-	res = [][]int16{res_up, res_right}
+	res = [][]int16{res_up, []int16{}, []int16{}, res_right}
 	if !reflect.DeepEqual(ReturnPossibleMoves(c), res) {
 		t.Error("Error: ReturnPossibleMoves")
 	}
@@ -94,8 +93,7 @@ func TestReturnPossibleMoves(t *testing.T) {
 	res_up = []int16{0, 5, 1, 3, 8, 4, 2, 6, 7}
 	res_down = []int16{3, 5, 1, 2, 8, 4, 0, 6, 7}
 	res_right = []int16{3, 5, 1, 8, 0, 4, 2, 6, 7}
-	res = [][]int16{res_up, res_down, res_right}
-	fmt.Println(ReturnPossibleMoves(d))
+	res = [][]int16{res_up, res_down, []int16{}, res_right}
 	if !reflect.DeepEqual(ReturnPossibleMoves(d), res) {
 		t.Error("Error: ReturnPossibleMoves")
 	}

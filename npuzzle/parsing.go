@@ -53,7 +53,7 @@ func readFile(filename string) (int, []int) {
 		}
 		numbers = append(numbers, strings.Fields(content)...)
 	}
-	if len(line[0]) != 1 {
+	if len(line[0]) == 0 {
 		printError("The line containing the size of the puzzle is incorrect")
 	}
 	for _, v := range numbers {
