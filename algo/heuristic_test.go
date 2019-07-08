@@ -4,6 +4,7 @@ import (
 	"npuzzle/checker"
 	"testing"
 	"reflect"
+	"fmt"
 )
 
 func TestManhattan(t *testing.T) {
@@ -31,4 +32,16 @@ func TestInvert(t *testing.T) {
 	if !reflect.DeepEqual(b, inverted) {
 		t.Errorf("Error: indexes are not correct")
 	}
+}
+
+func TestLinearConflict(t *testing.T) {
+	// Linear Conflict: Two tiles tj and tk are in a linear conflict 
+	// if tj and tk are the same line, the goal positions of tj and tk are both in that line,
+	// tj is to the right of tk , and goal position of tj is to the left of the goal position 
+	// of tk . Here line indicated both rows and columns. The linear conflict heuristic is 
+	// calculated as Manhattan distance + 2*(Linear conflicts).
+	tab := []int16{4, 2, 5, 1, 0, 6, 3, 8, 7}
+	result := []int16{1, 2, 3, 4, 5, 6, 7, 8, 0}
+	conflict := LinearConflict(tab, result)
+	fmt.Println(conflict)
 }
