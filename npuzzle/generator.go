@@ -38,7 +38,7 @@ func makePuzzle(size int, solvable bool, iterations int) []int16 {
 func GenerateNPuzzle() []int16 {
 	var solvable bool = false
 	parser := argparse.NewParser("npuzzle", "Prints provided string to stdout")
-	n := parser.String("n", "size", &argparse.Options{Help: "Size of the N-puzzle's side. Must be >= 3."})
+	n := parser.String("n", "size", &argparse.Options{Help: "Size of the N-puzzle's side. Must be >= 3 and <= 180."})
 	s := parser.Flag("s", "solvable", &argparse.Options{Help: "Forces generation of a solvable puzzle. Overrides -u."})
 	u := parser.Flag("u", "unsolvable", &argparse.Options{Help: "Forces generation of an unsolvable puzzle"})
 	i := parser.String("i", "iterations", &argparse.Options{Help: "Number of iterations to shuffle the puzzle"})
@@ -69,8 +69,8 @@ func GenerateNPuzzle() []int16 {
 				os.Exit(1)
 			}
 		}
-		if size < 3 {
-			fmt.Println("Can't generate a puzzle with size lower than 3. It says so in the help. Dummy.")
+		if size < 3 || size > 180 {
+			fmt.Println("Can't generate a puzzle with size lower than 3 or bigger than 180. It says so in the help. Dummy.")
 			os.Exit(1)
 		}
 		if *s {
