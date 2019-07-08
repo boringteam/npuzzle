@@ -108,7 +108,7 @@ func endSearch(current *node, rounds int, startTime time.Time, maxLen int) {
 	fmt.Println("Result:")
 	utils.PrintTab(current.tab)
 	fmt.Println("Steps to solution:")
-	directions := []string{"Up", "Down", "Left", "Rigth"}
+	directions := []string{"Up", "Down", "Left", "Right"}
 	fullPath := retrieveFullPath(current)
 	for i, move := range fullPath {
 		fmt.Print(directions[move])
