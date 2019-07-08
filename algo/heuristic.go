@@ -12,9 +12,10 @@ func CalculateManhattanDistance(tab []int16, result []int16) int16 {
 	var distRow float64
 	var distCol float64
 
+	inverseGoal := invert(result)
 	for i = 0; i < int16(len(tab)); i++ {
 		if tab[i] != 0 {
-			destIndex = GetIndexOf(tab[i], result)
+			destIndex = inverseGoal[tab[i]]
 			distRow = math.Abs(float64(i/utils.Size - destIndex/utils.Size))
 			distCol = math.Abs(float64(i%utils.Size - destIndex%utils.Size))
 			dist += int16(distRow + distCol)
@@ -30,9 +31,10 @@ func CalculateEuclideanDistance(tab []int16, result []int16) int16 {
 	var distRow float64
 	var distCol float64
 
+	inverseGoal := invert(result)
 	for i = 0; i < int16(len(tab)); i++ {
 		if tab[i] != 0 {
-			destIndex = GetIndexOf(tab[i], result)
+			destIndex = inverseGoal[tab[i]]
 			distRow = math.Pow(float64(i/utils.Size-destIndex/utils.Size), 2)
 			distCol = math.Pow(float64(i%utils.Size-destIndex%utils.Size), 2)
 			dist += int16(math.Sqrt(distRow + distCol))
@@ -41,11 +43,11 @@ func CalculateEuclideanDistance(tab []int16, result []int16) int16 {
 	return (int16(dist))
 }
 
-func GetIndexOf(x int16, tab []int16) int16 {
-	for v := range tab {
-		if tab[v] == x {
-			return (int16(v))
-		}
+func invert(tab []int16) []int16 {
+	result := append(tab[:0:0], tab...)
+	var i int16 = 0
+	for i = 0; i < int16(len(result)); i++ {
+		result[tab[i]] = i
 	}
-	return -1
+	return result
 }

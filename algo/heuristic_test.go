@@ -3,6 +3,7 @@ package algo
 import (
 	"npuzzle/checker"
 	"testing"
+	"reflect"
 )
 
 func TestManhattan(t *testing.T) {
@@ -22,11 +23,12 @@ func TestManhattan(t *testing.T) {
 	}
 }
 
-func TestGetIndexOf(t *testing.T) {
-	a := []int16{3, 5, 1, 8, 0, 4, 2, 6, 7}
-	var b int16 = 4
-	index := GetIndexOf(b, a)
-	if index != 5 {
-		t.Errorf("Error: index should be 5 and not %d", index)
+func TestInvert(t *testing.T) {
+	a := []int16{1, 2, 3, 8, 0, 4, 7, 6, 5}
+	b := invert(a)
+	//index of each number (ex: 0 is at index 4, 1 is at index 0, etc)
+	inverted := []int16{4, 0, 1, 2, 5, 8, 7, 6, 3}
+	if !reflect.DeepEqual(b, inverted) {
+		t.Errorf("Error: indexes are not correct")
 	}
 }

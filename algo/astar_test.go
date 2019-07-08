@@ -36,7 +36,6 @@ func TestRemoveFromList(t *testing.T) {
 	}
 	openList = []*node{&open_node1}
 	finalList = removeFromList(&open_node1, openList)
-	fmt.Println(finalList)
 	if fmt.Sprint(finalList) != fmt.Sprint([]*node{}) {
 		t.Error("Error: TestRemoveFromList")
 	}

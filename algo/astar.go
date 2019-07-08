@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"npuzzle/utils"
 	"reflect"
+	"strings"
 	"runtime"
 	"time"
 )
@@ -103,7 +104,7 @@ func endSearch(current *node, rounds int, startTime time.Time, maxLen int) {
 	fmt.Println("Found the solution!")
 	fmt.Println("Iterations:", rounds)
 	fmt.Println("Max length openList:", maxLen)
-	fmt.Println("----------------")
+	fmt.Println(strings.Repeat("-", int(utils.Size*5+1)))
 	fmt.Println("Result:")
 	utils.PrintTab(current.tab)
 	fmt.Println("Steps to solution:")
@@ -117,7 +118,7 @@ func endSearch(current *node, rounds int, startTime time.Time, maxLen int) {
 			fmt.Println(".")
 		}
 	}
-	fmt.Println("----------------")
+	fmt.Println(strings.Repeat("-", int(utils.Size*5)))
 	fmt.Println("Algo Duration: ", time.Since(startTime))
 }
 
