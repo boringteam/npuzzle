@@ -1,13 +1,17 @@
 package utils
 
+import "reflect"
+
 var Directions = map[string]int16{"UP": 0, "DOWN": 1, "LEFT": 2, "RIGHT": 3}
 
 func ReturnPossibleMoves(tab []int16) [][]int16 {
 	var list [][]int16
 	var i int16 = 0
 	for i < int16(len(Directions)) {
-		if MoveIsValid(tab, i) {
+		if !reflect.DeepEqual(tab, []int16{}) && MoveIsValid(tab, i) {
 			list = append(list, Move(tab, i))
+		} else {
+			list = append(list, []int16{})
 		}
 		i++
 	}

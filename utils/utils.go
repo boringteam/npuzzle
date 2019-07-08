@@ -24,6 +24,7 @@ func GetEmptyTile(tab []int16) int16 {
 }
 
 func PrintTab(tab []int16) {
+	fmt.Println("----------------")
 	var tile int16 = 0
 	for tile = 0; tile < Size*Size; tile++ {
 		if tab[tile] != 0 {
@@ -35,7 +36,7 @@ func PrintTab(tab []int16) {
 			fmt.Printf("|\n")
 		}
 	}
-	fmt.Printf("-\n")
+	fmt.Println("----------------")
 }
 
 func GetRandomNumber(max int) int16 {
