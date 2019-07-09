@@ -11,6 +11,7 @@ import (
 func main() {
 	// defer profile.Start().Stop()
 	tab := GenerateNPuzzle()
+	// fmt.Println(PuzzleInfo)
 	utils.InitUtils(tab)
 	utils.PrintTab(tab)
 	result := checker.BuildCorrectResult(utils.Size)

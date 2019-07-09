@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"npuzzle/checker"
 	"npuzzle/utils"
-
 	"github.com/akamensky/argparse"
 	// "npuzzle/parsing"
 	"math/rand"
@@ -13,9 +12,14 @@ import (
 	"time"
 )
 
+var PuzzleInfo = ""
+
 func makePuzzle(size int, solvable bool, iterations int) []int16 {
-	fmt.Println("Puzzle was generated automatically")
-	fmt.Println("Size", size, "- Solvable:", solvable, "- Iterations", iterations)
+	//To do: find a way to send PuzzleInfo to astar.go
+	PuzzleInfo += "Puzzle was generated automatically\n"
+	PuzzleInfo += "Size " + strconv.Itoa(size) + "- Solvable: " + strconv.FormatBool(solvable) + "- Iterations " + strconv.Itoa(iterations)
+	// fmt.Println("Puzzle was generated automatically")
+	// fmt.Println("Size", size, "- Solvable:", solvable, "- Iterations", iterations)
 	tab := checker.BuildCorrectResult(int16(size))
 	for iter := 0; iter < iterations; iter++ {
 		r := utils.GetRandomNumber(4)
