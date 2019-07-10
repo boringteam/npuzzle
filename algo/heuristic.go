@@ -3,7 +3,6 @@ package algo
 import (
 	"math"
 	"npuzzle/utils"
-	"fmt"
 )
 
 func CalculateManhattanDistance(tab []int16, result []int16) int16 {
@@ -44,6 +43,12 @@ func CalculateEuclideanDistance(tab []int16, result []int16) int16 {
 	return (int16(dist))
 }
 
+func calculateTaxicabGeometry(tab []int16, result[]int16) int16 {
+	manhattanDistance := CalculateManhattanDistance(tab, result)
+	linearConflict := LinearConflict(tab, result)
+	return (manhattanDistance + 2 * linearConflict)
+}
+
 func LinearConflict(tab []int16, result []int16) int16 {
 	var destIndexI, destIndexJ int = 0, 0
 	var conflict int16 = 0
@@ -62,20 +67,6 @@ func LinearConflict(tab []int16, result []int16) int16 {
 				rowJ := j % (size-1)
 				rowDestI := destIndexI % (size-1)
 				rowDestJ := destIndexJ % (size-1)
-				fmt.Println("tab[i]", tab[i])
-				fmt.Println("tab[j]", tab[j])
-				fmt.Println("i", i)
-				fmt.Println("destIndexI", destIndexI)
-				fmt.Println("j", j)
-				fmt.Println("destIndexJ", destIndexJ)
-				// fmt.Println("line i", lineI)
-				// fmt.Println("line j", lineJ)
-				// fmt.Println("line destI", lineDestI)
-				// fmt.Println("line destJ", lineDestJ)
-				fmt.Println("row i ", rowI)
-				fmt.Println("row j ", rowJ)
-				fmt.Println("row destI", rowDestI)
-				fmt.Println("row destJ", rowDestJ)
 				// conflict in line. If i and j are in the same line, and i and j are in the line of their goal
 				if lineI == lineJ && lineI == lineDestI && lineJ == lineDestJ {
 					// j > i will always be true. If destIndexJ is to the left of destIndexI
@@ -89,7 +80,6 @@ func LinearConflict(tab []int16, result []int16) int16 {
 						conflict++
 					}
 				}
-				fmt.Println("-----------")
 			}
 		}
 	}
