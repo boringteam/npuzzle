@@ -45,60 +45,51 @@ func CalculateEuclideanDistance(tab []int16, result []int16) int16 {
 }
 
 func LinearConflict(tab []int16, result []int16) int16 {
-	// Linear Conflict: Two tiles tj and tk are in a linear conflict 
-	// if tj and tk are the same line, the goal positions of tj and tk are both in that line,
-	// tj is to the right of tk , and goal position of tj is to the left of the goal position 
-	// of tk . Here line indicated both rows and columns. The linear conflict heuristic is 
-	// calculated as Manhattan distance + 2*(Linear conflicts).
-
-	var destIndexI, destIndexJinLine int = 0, 0
+	var destIndexI, destIndexJ int = 0, 0
 	var conflict int16 = 0
-
 	inverseGoal := invert(result)
 	var size int = int(utils.Size)
 	for i := 0; i < len(tab) - 1; i++ {
 		for j := i + 1; j < len(tab); j++ {
 			if tab[i] != 0 && tab[j] != 0 {
 				destIndexI = int(inverseGoal[tab[i]])
-				destIndexJinLine = int(inverseGoal[tab[j]])
+				destIndexJ = int(inverseGoal[tab[j]])
+				lineI := i / (size-1)
+				lineJ := j / (size-1)
+				lineDestI := destIndexI / (size-1)
+				lineDestJ := destIndexJ / (size-1)
+				rowI := i % (size-1)
+				rowJ := j % (size-1)
+				rowDestI := destIndexI % (size-1)
+				rowDestJ := destIndexJ % (size-1)
 				fmt.Println("tab[i]", tab[i])
 				fmt.Println("tab[j]", tab[j])
 				fmt.Println("i", i)
 				fmt.Println("destIndexI", destIndexI)
 				fmt.Println("j", j)
-				fmt.Println("destIndexJ", destIndexJinLine)
-				// fmt.Println(i / (size-1))
-				// fmt.Println((j) / (size-1))
-				fmt.Println("row i ", i % (size-1))
-				fmt.Println("row j ", j % (size-1))
+				fmt.Println("destIndexJ", destIndexJ)
+				// fmt.Println("line i", lineI)
+				// fmt.Println("line j", lineJ)
+				// fmt.Println("line destI", lineDestI)
+				// fmt.Println("line destJ", lineDestJ)
+				fmt.Println("row i ", rowI)
+				fmt.Println("row j ", rowJ)
+				fmt.Println("row destI", rowDestI)
+				fmt.Println("row destJ", rowDestJ)
+				// conflict in line. If i and j are in the same line, and i and j are in the line of their goal
+				if lineI == lineJ && lineI == lineDestI && lineJ == lineDestJ {
+					// j > i will always be true. If destIndexJ is to the left of destIndexI
+					if destIndexJ < destIndexI {
+						conflict++
+					}
+				}
+				// conflict in row. If i and j are in the same row, and i and j are in the row of their goal
+				if rowI == rowJ && rowI == rowDestI && rowJ == rowDestJ {
+					if destIndexJ < destIndexI {
+						conflict++
+					}
+				}
 				fmt.Println("-----------")
-				// TODO: add condition if second tile is in the way of first tile to the goal
-				// conflict in line
-				if i / (size-1) == (j) / (size-1) && i / (size-1) == destIndexI / (size-1) && j / (size-1) == destIndexJinLine / (size-1) {
-					fmt.Println("cc")
-					if i < destIndexI && j > i && j < destIndexI {
-						conflict++
-						fmt.Println("line1")
-					}
-					if i > destIndexI && j < i && j < destIndexI {
-						conflict++
-						fmt.Println("line2")
-					}
-
-				}
-				// TODO: add condition if second tile is in the way of first tile to the goal
-				// conflict in row
-				if i % (size-1) == (j) % (size-1) && i % (size-1) == destIndexI % (size-1) && j % (size-1) == destIndexJinLine % (size-1) {
-					if i < destIndexI && j > i && j < destIndexI {
-						conflict++
-						fmt.Println("row1")
-					}
-					if i > destIndexI && j < i && j < destIndexI {
-						conflict++
-						fmt.Println("row2")
-					}
-
-				}
 			}
 		}
 	}

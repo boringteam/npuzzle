@@ -4,7 +4,6 @@ import (
 	"npuzzle/checker"
 	"testing"
 	"reflect"
-	"fmt"
 )
 
 func TestManhattan(t *testing.T) {
@@ -35,14 +34,17 @@ func TestInvert(t *testing.T) {
 }
 
 func TestLinearConflict(t *testing.T) {
-	// Linear Conflict: Two tiles tj and tk are in a linear conflict 
-	// if tj and tk are the same line, the goal positions of tj and tk are both in that line,
-	// tj is to the right of tk , and goal position of tj is to the left of the goal position 
-	// of tk . Here line indicated both rows and columns. The linear conflict heuristic is 
-	// calculated as Manhattan distance + 2*(Linear conflicts).
-	// tab := []int16{4, 2, 5, 1, 0, 6, 3, 8, 7}
-	tab := []int16{1, 3, 2, 8, 0, 4, 7, 6, 5}
+	// test 2 conflicts in line, 2 and 3 inverted + 5 and 6 inverted
+	tabConflictsInLine := []int16{1, 3, 2, 8, 0, 4, 7, 5, 6}
+	// test 2 conflicts in row, 8 and 1 inverted + 2 and 6 inverted
+	tabConflictsInRow := []int16{8, 6, 3, 1, 0, 4, 7, 2, 5}
 	result := []int16{1, 2, 3, 8, 0, 4, 7, 6, 5}
-	conflict := LinearConflict(tab, result)
-	fmt.Println(conflict)
+	conflictsInLine := LinearConflict(tabConflictsInLine, result)
+	conflictsInRow := LinearConflict(tabConflictsInRow, result)
+	if conflictsInLine != 2 {
+		t.Errorf("Error: they should have 2 conflicts, 2 and 3 are inverted, as well as 5 and 6")
+	}
+	if conflictsInRow != 2 {
+		t.Errorf("Error: they should have 2 conflicts, 8 and 1 are inverted, as well as 2 and 6")
+	}
 }
