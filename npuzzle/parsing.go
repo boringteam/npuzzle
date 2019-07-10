@@ -72,10 +72,13 @@ func readFile(filename string) (int, []int) {
 	return size, puzzle
 }
 
-func Parsing(filename string) []int16 {
+func Parsing(filename string, visual bool) ([]int16, bool) {
 	size, content := readFile(filename)
 	if len(content) != size*size {
 		printError("The puzzle is not a square or has not the size written in the first line")
+	}
+	if visual == true && size > 30 {
+		visual = false
 	}
 	contentCopy := append(content[:0:0], content...)
 	sort.Ints(contentCopy)
@@ -91,7 +94,7 @@ func Parsing(filename string) []int16 {
 	if !reflect.DeepEqual(contentCopy, correctSlice) {
 		printError("The numbers are incorrect")
 	}
-	return convertedSlice
+	return convertedSlice, visual
 }
 
 func stripComment(source string) string {
