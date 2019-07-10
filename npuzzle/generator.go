@@ -35,7 +35,7 @@ func makePuzzle(size int, solvable bool, iterations int, visual bool) []int16 {
 	return tab
 }
 
-func GenerateNPuzzle() ([]int16, bool) {
+func GenerateNPuzzle() ([]int16, string, bool) {
 	var solvable bool = false
 	var visual bool = false
 	parser := argparse.NewParser("npuzzle", "Prints provided string to stdout")
@@ -45,10 +45,10 @@ func GenerateNPuzzle() ([]int16, bool) {
 	i := parser.String("i", "iterations", &argparse.Options{Help: "Number of iterations to shuffle the puzzle"})
 	f := parser.String("f", "file", &argparse.Options{Help: "Path to the txt file to read from"})
 	v := parser.Flag("v", "visual", &argparse.Options{Help: "If the size of the puzzle is <= 30, get a nice visual of the white tile move"})
-
+	he := parser.String("g", "heuristic", &argparse.Options{Required: false, Help: "Choose among `manhattan`, `euclidian` or `taxicab` heuristics. Default is `manhattan`", Default:"manhattan"})
 	puzzle := []int16{}
 	size := 3
-
+	
 	// Parse input
 	err := parser.Parse(os.Args)
 	if err != nil {
@@ -59,6 +59,10 @@ func GenerateNPuzzle() ([]int16, bool) {
 	}
 	if *v {
 		visual = true
+	}
+	if len(*he) != 0 && *he != "manhattan" && *he != "taxicab" && *he != "euclidian" {
+		fmt.Println("Error: The heuristic name is incorrect")
+		os.Exit(1)
 	}
 	if len(*f) != 0 {
 		puzzle, visual = Parsing(*f, visual)
@@ -95,5 +99,5 @@ func GenerateNPuzzle() ([]int16, bool) {
 		}
 		puzzle = makePuzzle(size, solvable, iterations, visual)
 	}
-	return puzzle, visual
+	return puzzle, *he, visual
 }

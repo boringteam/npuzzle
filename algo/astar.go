@@ -27,11 +27,11 @@ type aStarData struct {
 	result     []int16
 }
 
-func AStar(tab []int16, result []int16, visual bool) {
+func AStar(tab []int16, result []int16, heuristic string, visual bool) {
 	runtime.GOMAXPROCS(30)
 	startTime := time.Now()
 	gd := aStarData{[]*node{}, []*node{}, result}
-	n := createNode(nil, tab, gd.result, 0)
+	n := createNode(nil, tab, gd.result, 0, heuristic)
 	gd.openList = append(gd.openList, n)
 	timeComplexity++
 	ch := make(chan []*node)
@@ -57,7 +57,7 @@ func AStar(tab []int16, result []int16, visual bool) {
 				running = false
 			}
 			posMoves := utils.ReturnPossibleMoves(current.tab)
-			go handleNode(ch, posMoves, &gd, current)
+			go handleNode(ch, posMoves, &gd, current, heuristic)
 		}
 	}
 }
@@ -71,7 +71,7 @@ func openListHandler(ch <-chan []*node, gd *aStarData) {
 	}
 }
 
-func handleNode(ch chan<- []*node, posMoves [][]int16, gd *aStarData, current *node) {
+func handleNode(ch chan<- []*node, posMoves [][]int16, gd *aStarData, current *node, heuristic string) {
 	new_list := []*node{}
 	for i, v := range posMoves {
 		// if v is in closedList continue
@@ -79,7 +79,7 @@ func handleNode(ch chan<- []*node, posMoves [][]int16, gd *aStarData, current *n
 			continue
 		}
 		open_node := tabInSlice(v, gd.openList)
-		new := createNode(current, v, gd.result, i)
+		new := createNode(current, v, gd.result, i, heuristic)
 		// if v is in openList see if new node has better G
 		if open_node != nil && new.G >= open_node.G {
 			continue
@@ -136,11 +136,13 @@ func endSearch(tab []int16, current *node, rounds int, startTime time.Time, maxL
 	
 }
 
-func createNode(parent *node, tab []int16, result []int16, directionParent int) *node {
+func createNode(parent *node, tab []int16, result []int16, directionParent int, heuristic string) *node {
 	new := node{}
 	new.tab = tab
 	new.hash = fmt.Sprintf("%x", md5.Sum([]byte(fmt.Sprint(new.tab))))
-	new.H = CalculateManhattanDistance(new.tab, result)
+	if heuristic == "manhattan" {
+		new.H = CalculateManhattanDistance(new.tab, result)
+	}
 	new.F = new.G + new.H
 	new.directionParent = directionParent
 	if parent != nil {
