@@ -61,25 +61,42 @@ func LinearConflict(tab []int16, result []int16) int16 {
 			if tab[i] != 0 && tab[j] != 0 {
 				destIndexI = int(inverseGoal[tab[i]])
 				destIndexJinLine = int(inverseGoal[tab[j]])
-				fmt.Println(tab[i])
-				fmt.Println(tab[j])
+				fmt.Println("tab[i]", tab[i])
+				fmt.Println("tab[j]", tab[j])
+				fmt.Println("i", i)
+				fmt.Println("destIndexI", destIndexI)
+				fmt.Println("j", j)
+				fmt.Println("destIndexJ", destIndexJinLine)
 				// fmt.Println(i / (size-1))
 				// fmt.Println((j) / (size-1))
-				fmt.Println(i % (size-1))
-				fmt.Println(j % (size-1))
+				fmt.Println("row i ", i % (size-1))
+				fmt.Println("row j ", j % (size-1))
 				fmt.Println("-----------")
 				// TODO: add condition if second tile is in the way of first tile to the goal
 				// conflict in line
 				if i / (size-1) == (j) / (size-1) && i / (size-1) == destIndexI / (size-1) && j / (size-1) == destIndexJinLine / (size-1) {
-					conflict++
-					fmt.Println("line")
+					fmt.Println("cc")
+					if i < destIndexI && j > i && j < destIndexI {
+						conflict++
+						fmt.Println("line1")
+					}
+					if i > destIndexI && j < i && j < destIndexI {
+						conflict++
+						fmt.Println("line2")
+					}
 
 				}
 				// TODO: add condition if second tile is in the way of first tile to the goal
 				// conflict in row
 				if i % (size-1) == (j) % (size-1) && i % (size-1) == destIndexI % (size-1) && j % (size-1) == destIndexJinLine % (size-1) {
-					conflict++
-					fmt.Println("row")
+					if i < destIndexI && j > i && j < destIndexI {
+						conflict++
+						fmt.Println("row1")
+					}
+					if i > destIndexI && j < i && j < destIndexI {
+						conflict++
+						fmt.Println("row2")
+					}
 
 				}
 			}

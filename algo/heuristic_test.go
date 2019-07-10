@@ -40,8 +40,9 @@ func TestLinearConflict(t *testing.T) {
 	// tj is to the right of tk , and goal position of tj is to the left of the goal position 
 	// of tk . Here line indicated both rows and columns. The linear conflict heuristic is 
 	// calculated as Manhattan distance + 2*(Linear conflicts).
-	tab := []int16{4, 2, 5, 1, 0, 6, 3, 8, 7}
-	result := []int16{1, 2, 3, 4, 5, 6, 7, 8, 0}
+	// tab := []int16{4, 2, 5, 1, 0, 6, 3, 8, 7}
+	tab := []int16{1, 3, 2, 8, 0, 4, 7, 6, 5}
+	result := []int16{1, 2, 3, 8, 0, 4, 7, 6, 5}
 	conflict := LinearConflict(tab, result)
 	fmt.Println(conflict)
 }
