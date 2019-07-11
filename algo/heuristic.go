@@ -98,10 +98,8 @@ func linearConflict(tab []int16, result []int16) int16 {
 	}(messages)
 
 	for i := 0; i < len(tab)-1; i++ {
-
 		wg.Add(1)
 		go func(i int) {
-			// fmt.Println("Launch")
 			var conflict int16
 			destIndexI := int(inverseGoal[tab[i]])
 			lineI := i/size - 1
@@ -137,8 +135,6 @@ func linearConflict(tab []int16, result []int16) int16 {
 	}
 	wg.Wait()
 	close(messages)
-	// fmt.Println("end")
-	// fmt.Println(conflict)
 	return int16(totalConflitcs)
 }
 
