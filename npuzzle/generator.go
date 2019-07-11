@@ -39,13 +39,13 @@ func GenerateNPuzzle() ([]int16, string, bool) {
 	var solvable bool = false
 	var visual bool = false
 	parser := argparse.NewParser("npuzzle", "Prints provided string to stdout")
-	n := parser.String("n", "size", &argparse.Options{Help: "Size of the N-puzzle's side. Must be >= 3  and <= 180."})
-	s := parser.Flag("s", "solvable", &argparse.Options{Help: "Forces generation of a solvable puzzle. Overrides -u."})
+	n := parser.String("n", "size", &argparse.Options{Help: "Size of the N-puzzle's side. Must be >= 3  and <= 180"})
+	s := parser.Flag("s", "solvable", &argparse.Options{Help: "Forces generation of a solvable puzzle. Overrides -u"})
 	u := parser.Flag("u", "unsolvable", &argparse.Options{Help: "Forces generation of an unsolvable puzzle"})
 	i := parser.String("i", "iterations", &argparse.Options{Help: "Number of iterations to shuffle the puzzle"})
 	f := parser.String("f", "file", &argparse.Options{Help: "Path to the txt file to read from"})
 	v := parser.Flag("v", "visual", &argparse.Options{Help: "If the size of the puzzle is <= 30, get a nice visual of the white tile move"})
-	he := parser.String("g", "heuristic", &argparse.Options{Required: false, Help: "Choose among `manhattan`, `euclidian` or `taxicab` heuristics. Default is `manhattan`", Default:"manhattan"})
+	he := parser.String("c", "heuristic", &argparse.Options{Required: false, Help: "Choose among `manhattan`, `euclidean` or `taxicab` heuristics", Default:"manhattan"})
 	puzzle := []int16{}
 	size := 3
 	
@@ -60,7 +60,7 @@ func GenerateNPuzzle() ([]int16, string, bool) {
 	if *v {
 		visual = true
 	}
-	if len(*he) != 0 && *he != "manhattan" && *he != "taxicab" && *he != "euclidian" {
+	if len(*he) != 0 && *he != "manhattan" && *he != "taxicab" && *he != "euclidean" {
 		fmt.Println("Error: The heuristic name is incorrect")
 		os.Exit(1)
 	}

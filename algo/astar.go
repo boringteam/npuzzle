@@ -142,6 +142,12 @@ func createNode(parent *node, tab []int16, result []int16, directionParent int, 
 	if heuristic == "manhattan" {
 		new.H = CalculateManhattanDistance(new.tab, result)
 	}
+	if heuristic == "euclidean" {
+		new.H = CalculateEuclideanDistance(new.tab, result)
+	}
+	if heuristic == "taxicab" {
+		new.H = CalculateTaxicabGeometry(new.tab, result)
+	}
 	new.F = new.G + new.H
 	new.directionParent = directionParent
 	if parent != nil {

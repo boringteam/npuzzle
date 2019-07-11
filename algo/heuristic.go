@@ -3,6 +3,7 @@ package algo
 import (
 	"math"
 	"npuzzle/utils"
+	// "fmt"
 )
 
 func CalculateManhattanDistance(tab []int16, result []int16) int16 {
@@ -43,13 +44,13 @@ func CalculateEuclideanDistance(tab []int16, result []int16) int16 {
 	return (int16(dist))
 }
 
-func calculateTaxicabGeometry(tab []int16, result[]int16) int16 {
+func CalculateTaxicabGeometry(tab []int16, result[]int16) int16 {
 	manhattanDistance := CalculateManhattanDistance(tab, result)
-	linearConflict := LinearConflict(tab, result)
+	linearConflict := linearConflict(tab, result)
 	return (manhattanDistance + 2 * linearConflict)
 }
 
-func LinearConflict(tab []int16, result []int16) int16 {
+func linearConflict(tab []int16, result []int16) int16 {
 	var destIndexI, destIndexJ int = 0, 0
 	var conflict int16 = 0
 	inverseGoal := invert(result)
@@ -83,6 +84,7 @@ func LinearConflict(tab []int16, result []int16) int16 {
 			}
 		}
 	}
+	// fmt.Println(conflict)
 	return conflict
 }
 
