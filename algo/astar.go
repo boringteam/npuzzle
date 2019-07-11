@@ -6,8 +6,8 @@ import (
 	utils "npuzzle/utils"
 	vi "npuzzle/visual"
 	"reflect"
-	"strings"
 	"runtime"
+	"strings"
 	"time"
 )
 
@@ -89,7 +89,7 @@ func handleNode(ch chan<- []*node, posMoves [][]int16, gd *aStarData, current *n
 	ch <- new_list
 }
 
-func retrieveFullPath(current *node) ([]int, [][]int16) {	
+func retrieveFullPath(current *node) ([]int, [][]int16) {
 	step := current
 	fullPath := []int{}
 	fullPathTab := [][]int16{}
@@ -115,11 +115,10 @@ func endSearch(tab []int16, current *node, rounds int, startTime time.Time, maxL
 	} else {
 		fmt.Println("Found the solution!")
 		fmt.Println("Iterations:", rounds)
-		fmt.Println("Complexity in size: " , maxLen)
-		fmt.Println("Complexity in time: " , timeComplexity)
+		fmt.Println("Complexity in size: ", maxLen)
+		fmt.Println("Complexity in time: ", timeComplexity)
 		fmt.Println(strings.Repeat("-", int(utils.Size*5+1)))
 		fmt.Println("Result:")
-		// utils.PrintTab(current.tab)
 		fmt.Println("Number of moves:", len(fullPath))
 		fmt.Println("Steps to solution:")
 		for i, move := range fullPath {
