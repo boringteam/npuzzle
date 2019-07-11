@@ -5,6 +5,7 @@ import (
 	"math"
 	"math/rand"
 	"time"
+	"strings"
 )
 
 var Size int16 = 0
@@ -24,7 +25,7 @@ func GetEmptyTile(tab []int16) int16 {
 }
 
 func PrintTab(tab []int16) {
-	fmt.Println("----------------")
+	fmt.Println(strings.Repeat("-", int(Size*5+1)))
 	var tile int16 = 0
 	for tile = 0; tile < Size*Size; tile++ {
 		if tab[tile] != 0 {
@@ -36,7 +37,7 @@ func PrintTab(tab []int16) {
 			fmt.Printf("|\n")
 		}
 	}
-	fmt.Println("----------------")
+	fmt.Println(strings.Repeat("-", int(Size*5+1)))
 }
 
 func GetRandomNumber(max int) int16 {
