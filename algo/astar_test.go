@@ -9,9 +9,9 @@ import (
 
 func TestTabInSlice(t *testing.T) {
 	result := checker.BuildCorrectResult(3)
-	open_node1 := createNode(nil, []int16{8, 2, 5, 1, 6, 3, 0, 4, 7}, result, 0)
-	open_node2 := createNode(nil, []int16{2, 8, 5, 1, 6, 3, 0, 4, 7}, result, 0)
-	open_node3 := createNode(nil, []int16{5, 2, 8, 1, 6, 3, 0, 4, 7}, result, 0)
+	open_node1 := createNode(nil, []int16{8, 2, 5, 1, 6, 3, 0, 4, 7}, result, 0, "manhattan")
+	open_node2 := createNode(nil, []int16{2, 8, 5, 1, 6, 3, 0, 4, 7}, result, 0, "manhattan")
+	open_node3 := createNode(nil, []int16{5, 2, 8, 1, 6, 3, 0, 4, 7}, result, 0, "manhattan")
 	tab := []int16{8, 2, 5, 1, 6, 3, 0, 4, 7}
 	openList := []*node{open_node1, open_node2, open_node3}
 	res := tabInSlice(tab, openList)

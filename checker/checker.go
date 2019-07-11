@@ -3,6 +3,7 @@ package checker
 import (
 	"npuzzle/utils"
 	"reflect"
+	"fmt"
 )
 
 func CheckResult(current []int16, result []int16) bool {
@@ -16,12 +17,12 @@ func countInversions(tab []int16) int16 {
 	inversions := 0
 	for i, _ := range tab {
 		for a := i + 1; a < len(tab); a++ {
-			if tab[a] != 0 && tab[i] > tab[a] {
+			if tab[a] != 0 && tab[i] != 0 && tab[i] > tab[a] {
 				inversions++
 			}
-
 		}
 	}
+	fmt.Println(inversions)
 	return int16(inversions)
 }
 
@@ -32,9 +33,16 @@ func CheckSolvable(givenTab []int16, result []int16, size int16) bool {
 	inversions_result := countInversions(result)
 	inversions := countInversions(givenTab)
 	if size%2 == 0 {
-		inversions_result += utils.GetEmptyTile(result)
+		rowResult := utils.GetEmptyTile(result) / size
+		if (size - rowResult)%2 == 0 {
+			inversions_result += 1
+		}
+
+		// inversions_result += utils.GetEmptyTile(result)
+		// inversions_result += utils.GetEmptyTile(result)
 		// inversions += utils.GetEmptyTile(givenTab) // old
-		if (utils.GetEmptyTile(givenTab)/size)%2 == 0 {
+		row := utils.GetEmptyTile(givenTab) / size
+		if (size - row)%2 == 0 {
 			inversions += 1
 		}
 	}

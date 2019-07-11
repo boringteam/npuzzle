@@ -12,7 +12,7 @@ func main() {
 	tab, heuristic, visual := GenerateNPuzzle()
 	utils.InitUtils(tab)
 	if visual == false {
-		utils.PrintTab(tab)
+		// utils.PrintTab(tab)
 	}
 	result := checker.BuildCorrectResult(utils.Size)
 	isSolvable := checker.CheckSolvable(tab, result, utils.Size)

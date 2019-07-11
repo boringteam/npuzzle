@@ -3,7 +3,6 @@ package algo
 import (
 	"math"
 	"npuzzle/utils"
-	// "fmt"
 )
 
 func CalculateManhattanDistance(tab []int16, result []int16) int16 {
@@ -56,18 +55,18 @@ func linearConflict(tab []int16, result []int16) int16 {
 	inverseGoal := invert(result)
 	var size int = int(utils.Size)
 	for i := 0; i < len(tab) - 1; i++ {
+		destIndexI = int(inverseGoal[tab[i]])
+		lineI := i / size
+		lineDestI := destIndexI / size
+		rowI := i % size
+		rowDestI := destIndexI % size
 		for j := i + 1; j < len(tab); j++ {
 			if tab[i] != 0 && tab[j] != 0 {
-				destIndexI = int(inverseGoal[tab[i]])
-				destIndexJ = int(inverseGoal[tab[j]])
-				lineI := i / (size-1)
-				lineJ := j / (size-1)
-				lineDestI := destIndexI / (size-1)
-				lineDestJ := destIndexJ / (size-1)
-				rowI := i % (size-1)
-				rowJ := j % (size-1)
-				rowDestI := destIndexI % (size-1)
-				rowDestJ := destIndexJ % (size-1)
+				// destIndexJ = int(inverseGoal[tab[j]])
+				lineJ := j / size
+				lineDestJ := destIndexI / size
+				rowJ := j % size
+				rowDestJ := destIndexJ % size
 				// conflict in line. If i and j are in the same line, and i and j are in the line of their goal
 				if lineI == lineJ && lineI == lineDestI && lineJ == lineDestJ {
 					// j > i will always be true. If destIndexJ is to the left of destIndexI

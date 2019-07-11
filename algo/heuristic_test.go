@@ -2,6 +2,7 @@ package algo
 
 import (
 	"npuzzle/checker"
+	"npuzzle/utils"
 	"testing"
 	"reflect"
 )
@@ -34,17 +35,42 @@ func TestInvert(t *testing.T) {
 }
 
 func TestLinearConflict(t *testing.T) {
+	resultThree := []int16{1, 2, 3, 8, 0, 4, 7, 6, 5}
+	utils.InitUtils(resultThree)
+
 	// test 2 conflicts in line, 2 and 3 inverted + 5 and 6 inverted
 	tabConflictsInLine := []int16{1, 3, 2, 8, 0, 4, 7, 5, 6}
+	conflictsInLine := linearConflict(tabConflictsInLine, resultThree)
 	// test 2 conflicts in row, 8 and 1 inverted + 2 and 6 inverted
 	tabConflictsInRow := []int16{8, 6, 3, 1, 0, 4, 7, 2, 5}
-	result := []int16{1, 2, 3, 8, 0, 4, 7, 6, 5}
-	conflictsInLine := LinearConflict(tabConflictsInLine, result)
-	conflictsInRow := LinearConflict(tabConflictsInRow, result)
+	conflictsInRow := linearConflict(tabConflictsInRow, resultThree)
+
+	resultFour := []int16{1, 2, 3, 4, 12, 13, 14, 5, 11, 0, 15, 6, 10, 9, 8, 7}
+	utils.InitUtils(resultFour)
+
+	//test 2 conflicts in same line, 2 times
+	tabConflictsInSameLine := []int16{2, 1, 4, 3, 12, 13, 14, 5, 11, 0, 15, 6, 9, 10, 7, 8}
+	conflictTestInSameLine := linearConflict(tabConflictsInSameLine, resultFour)
+	// test 2 conflicts in same row, 2 times
+	tabConflictsInSameRow := []int16{12, 2, 3, 5, 1, 13, 14, 4, 10, 0, 15, 7, 11, 9, 8, 6}
+	conflictTestInSameRow := linearConflict(tabConflictsInSameRow, resultFour)
+	// test conflicts in same line but with numbers in between
+	tabConflictOppositeSwap := []int16{4, 2, 3, 1, 12, 13, 14, 5, 11, 0, 15, 6, 7, 9, 8, 10}
+	conflictTestSwap := linearConflict(tabConflictOppositeSwap, resultFour)
 	if conflictsInLine != 2 {
 		t.Errorf("Error: they should have 2 conflicts, 2 and 3 are inverted, as well as 5 and 6")
 	}
 	if conflictsInRow != 2 {
 		t.Errorf("Error: they should have 2 conflicts, 8 and 1 are inverted, as well as 2 and 6")
 	}
+	if conflictTestInSameLine != 4 {
+		t.Errorf("Error: they should have 4 conflicts, 2 and 1 are inverted, as well as 4 and 3, and 9 with 10, 7 and 8")
+	}
+	if conflictTestInSameRow != 4 {
+		t.Errorf("Error: they should have 4 conflicts, 8 and 1 are inverted, as well as 2 and 6")
+	}
+	if conflictTestSwap != 10 {
+		t.Errorf("Error: they should have 10 conflicts, 8 and 1 are inverted, as well as 2 and 6")
+	}
+
 }

@@ -119,7 +119,7 @@ func endSearch(tab []int16, current *node, rounds int, startTime time.Time, maxL
 		fmt.Println("Complexity in time: " , timeComplexity)
 		fmt.Println(strings.Repeat("-", int(utils.Size*5+1)))
 		fmt.Println("Result:")
-		utils.PrintTab(current.tab)
+		// utils.PrintTab(current.tab)
 		fmt.Println("Number of moves:", len(fullPath))
 		fmt.Println("Steps to solution:")
 		for i, move := range fullPath {
