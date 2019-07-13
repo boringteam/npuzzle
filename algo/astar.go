@@ -75,6 +75,9 @@ func handleNode(ch chan<- []*node, posMoves [][]int16, gd *aStarData, current *n
 	new_list := []*node{}
 	for i, v := range posMoves {
 		// if v is in closedList continue
+		if len(v) == 0 {
+			continue
+		}
 		if tabInSlice(v, gd.closedList) != nil {
 			continue
 		}
