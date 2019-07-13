@@ -1,27 +1,27 @@
-PROJECTNAME := $(shell basename "$(PWD)/src/npuzzle")
+PROJECTNAME := $(shell basename "$(PWD)")
 PKGS := $(shell go list ./... | grep -v /vendor)
 
 # Go parameters
 GOBASE := $(shell pwd)
-GOPATH := $(GOBASE)/vendor:$(GOBASE)
+# GOPATH := $(GOBASE)/vendor:$(GOBASE)
 GOBIN := $(GOBASE)/bin
 GOSRC := $(GOBASE)/src
-PROJECTBASE := $(GOSRC)/npuzzle
+PROJECTBASE := npuzzle
 GOCMD=go
 GOBUILD=$(GOCMD) build
 GOCLEAN=$(GOCMD) clean
 GOTEST=$(GOCMD) test
 GOGET=$(GOCMD) get
-GOFILES := $(PROJECTBASE)/npuzzle/generator.go $(PROJECTBASE)/npuzzle/npuzzle.go
+GOFILES := $(PROJECTBASE)/npuzzle
 BINARY_NAME=$(PROJECTNAME).out
 
 all: test build
-	
-build: 
+
+build:
 	$(GOBUILD) -o $(BINARY_NAME) -v $(GOFILES)
-test: 
+test:
 	$(GOTEST) -v $(PKGS)
-clean: 
+clean:
 	$(GOCLEAN)
 	rm -f $(BINARY_NAME)
 run:
