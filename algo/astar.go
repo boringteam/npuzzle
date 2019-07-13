@@ -147,12 +147,12 @@ func createNode(parent *node, tab []int16, result []int16, directionParent int, 
 	if heuristic == "taxicab" {
 		new.H = CalculateTaxicabGeometry(new.tab, result)
 	}
-	new.F = new.G + new.H
 	new.directionParent = directionParent
 	if parent != nil {
 		new.G = parent.G + 1
 		new.parent = parent
 	}
+	new.F = new.G + new.H
 	return &new
 }
 
