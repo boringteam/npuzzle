@@ -144,8 +144,8 @@ func createNode(parent *node, tab []int16, result []int16, directionParent int, 
 	if heuristic == "euclidean" {
 		new.H = CalculateEuclideanDistance(new.tab, result)
 	}
-	if heuristic == "taxicab" {
-		new.H = CalculateTaxicabGeometry(new.tab, result)
+	if heuristic == "linearconflict" {
+		new.H = CalculateLinearConflict(new.tab, result)
 	}
 	new.directionParent = directionParent
 	if parent != nil {

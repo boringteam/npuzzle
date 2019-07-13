@@ -12,15 +12,36 @@ func TestManhattan(t *testing.T) {
 	var dist int16
 	a := []int16{3, 0, 5, 8, 1, 4, 2, 6, 7}
 	res = checker.BuildCorrectResult(3)
+	utils.InitUtils(res)
 	dist = CalculateManhattanDistance(a, res)
 	if dist != 11 {
 		t.Errorf("Error: Manhattan Distance should be 11 and not %d", dist)
 	}
 	b := []int16{8, 2, 7, 4, 1, 0, 10, 15, 3, 9, 6, 13, 11, 5, 12, 14}
 	res = checker.BuildCorrectResult(4)
+	utils.InitUtils(res)
 	dist = CalculateManhattanDistance(b, res)
 	if dist != 37 {
 		t.Errorf("Error: Manhattan Distance should be 37 and not %d", dist)
+	}
+}
+
+func TestEuclidean(t *testing.T) {
+	var res []int16
+	var dist int16
+	a := []int16{3, 0, 5, 8, 1, 4, 2, 6, 7}
+	res = checker.BuildCorrectResult(3)
+	utils.InitUtils(res)
+	dist = CalculateEuclideanDistance(a, res)
+	if dist != 9 {
+		t.Errorf("Error: Euclidean Distance should be 9 and not %d", dist)
+	}
+	b := []int16{8, 2, 7, 4, 1, 0, 10, 15, 3, 9, 6, 13, 11, 5, 12, 14}
+	res = checker.BuildCorrectResult(4)
+	utils.InitUtils(res)
+	dist = CalculateEuclideanDistance(b, res)
+	if dist != 23 {
+		t.Errorf("Error: Euclidean Distance should be 23 and not %d", dist)
 	}
 }
 
