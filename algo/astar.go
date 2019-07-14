@@ -117,7 +117,7 @@ func endSearch(tab []int16, current *node, rounds int, startTime time.Time, maxL
 		vi.CreateVisual(tab, directions, rounds, maxLen, fullPath, fullPathTab, time.Since(startTime), len(fullPath), timeComplexity)
 	} else {
 		fmt.Println("Found the solution!")
-		fmt.Println("Iterations:", rounds)
+		fmt.Println("Treated nodes:", rounds)
 		fmt.Println("Complexity in size: ", maxLen)
 		fmt.Println("Complexity in time: ", timeComplexity)
 		fmt.Println(strings.Repeat("-", int(utils.Size*5+1)))
@@ -154,11 +154,11 @@ func createNode(parent *node, tab []int16, result []int16, directionParent int, 
 		new.H = CalculateLinearConflict(new.tab, result)
 	}
 	new.directionParent = directionParent
+	new.F = new.G + new.H
 	if parent != nil {
 		new.G = parent.G + 1
 		new.parent = parent
 	}
-	new.F = new.G + new.H
 	return &new
 }
 

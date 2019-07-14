@@ -1,9 +1,8 @@
 PROJECTNAME := $(shell basename "$(PWD)")
-PKGS := $(shell go list ./... | grep -v /vendor)
+PKGS=npuzzle/algo npuzzle/checker npuzzle/utils
 
 # Go parameters
 GOBASE := $(shell pwd)
-# GOPATH := $(GOBASE)/vendor:$(GOBASE)
 GOBIN := $(GOBASE)/bin
 GOSRC := $(GOBASE)/src
 PROJECTBASE := npuzzle
@@ -15,7 +14,7 @@ GOGET=$(GOCMD) get
 GOFILES := $(PROJECTBASE)/npuzzle
 BINARY_NAME=$(PROJECTNAME).out
 
-all: test build
+all: deps build
 
 build:
 	$(GOBUILD) -o $(BINARY_NAME) -v $(GOFILES)
@@ -24,9 +23,12 @@ test:
 clean:
 	$(GOCLEAN)
 	rm -f $(BINARY_NAME)
-run:
-	$(GOBUILD) -o $(BINARY_NAME) -v $(GOFILES)
+run: build
 	./$(BINARY_NAME)
 deps:
-	$(GOGET) -u -v github.com/akamensky/argparse
-	$(GOGET) -u -v github.com/gizak/termui/v3
+	$(GOGET) -u github.com/akamensky/argparse
+	$(GOGET) -u github.com/gizak/termui/v3
+
+re: clean build
+
+.PHONY: all build test clean run deps re
