@@ -7,8 +7,8 @@ import (
 	vi "npuzzle/visual"
 	"reflect"
 	"runtime"
-	"time"
 	"strings"
+	"time"
 )
 
 var timeComplexity int = 0
@@ -75,6 +75,9 @@ func handleNode(ch chan<- []*node, posMoves [][]int16, gd *aStarData, current *n
 	new_list := []*node{}
 	for i, v := range posMoves {
 		// if v is in closedList continue
+		if len(v) == 0 {
+			continue
+		}
 		if tabInSlice(v, gd.closedList) != nil {
 			continue
 		}
@@ -89,7 +92,7 @@ func handleNode(ch chan<- []*node, posMoves [][]int16, gd *aStarData, current *n
 	ch <- new_list
 }
 
-func retrieveFullPath(current *node) ([]int, [][]int16) {	
+func retrieveFullPath(current *node) ([]int, [][]int16) {
 	step := current
 	fullPath := []int{}
 	fullPathTab := [][]int16{}
@@ -114,12 +117,11 @@ func endSearch(tab []int16, current *node, rounds int, startTime time.Time, maxL
 		vi.CreateVisual(tab, directions, rounds, maxLen, fullPath, fullPathTab, time.Since(startTime), len(fullPath), timeComplexity)
 	} else {
 		fmt.Println("Found the solution!")
-		fmt.Println("Iterations:", rounds)
-		fmt.Println("Complexity in size: " , maxLen)
-		fmt.Println("Complexity in time: " , timeComplexity)
+		fmt.Println("Treated nodes:", rounds)
+		fmt.Println("Complexity in size: ", maxLen)
+		fmt.Println("Complexity in time: ", timeComplexity)
 		fmt.Println(strings.Repeat("-", int(utils.Size*5+1)))
 		fmt.Println("Result:")
-		utils.PrintTab(current.tab)
 		fmt.Println("Number of moves:", len(fullPath))
 		fmt.Println("Steps to solution:")
 		for i, move := range fullPath {
@@ -133,7 +135,6 @@ func endSearch(tab []int16, current *node, rounds int, startTime time.Time, maxL
 		fmt.Println(strings.Repeat("-", int(utils.Size*5+1)))
 		fmt.Println("Algo Duration: ", time.Since(startTime))
 	}
-	
 }
 
 func createNode(parent *node, tab []int16, result []int16, directionParent int, heuristic string) *node {
@@ -143,8 +144,17 @@ func createNode(parent *node, tab []int16, result []int16, directionParent int, 
 	if heuristic == "manhattan" {
 		new.H = CalculateManhattanDistance(new.tab, result)
 	}
-	new.F = new.G + new.H
+	if heuristic == "euclidean" {
+		new.H = CalculateEuclideanDistance(new.tab, result)
+	}
+	if heuristic == "hamming" {
+		new.H = CalculateHammingDistance(new.tab, result)
+	}
+	if heuristic == "linearconflict" {
+		new.H = CalculateLinearConflict(new.tab, result)
+	}
 	new.directionParent = directionParent
+	new.F = new.G + new.H
 	if parent != nil {
 		new.G = parent.G + 1
 		new.parent = parent

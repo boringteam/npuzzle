@@ -16,29 +16,44 @@ func countInversions(tab []int16) int16 {
 	inversions := 0
 	for i, _ := range tab {
 		for a := i + 1; a < len(tab); a++ {
-			if tab[a] != 0 && tab[i] > tab[a] {
+			if tab[a] != 0 && tab[i] != 0 && tab[i] > tab[a] {
 				inversions++
 			}
-
 		}
 	}
 	return int16(inversions)
 }
 
-// If the grid width is odd, then the number of inversions in a solvable situation is even.
-// If the grid width is even, and the blank is on an even row counting from the bottom (second-last, fourth-last etc), then the number of inversions in a solvable situation is odd.
-// If the grid width is even, and the blank is on an odd row counting from the bottom (last, third-last, fifth-last etc) then the number of inversions in a solvable situation is even.
 func CheckSolvable(givenTab []int16, result []int16, size int16) bool {
-	inversions_result := countInversions(result)
-	inversions := countInversions(givenTab)
-	if size%2 == 0 {
-		inversions_result += utils.GetEmptyTile(result)
-		// inversions += utils.GetEmptyTile(givenTab) // old
-		if (utils.GetEmptyTile(givenTab)/size)%2 == 0 {
-			inversions += 1
+	/*
+		If the grid width is odd, then the number of inversions in a solvable situation is even.
+		If the grid width is even, and the blank is on an even row counting from the bottom (seco nd-last, fourth-last etc)
+		then the number of inversions in a solvable situation is odd.
+		If the grid width is even, and the blank is on an odd row counting from the bottom (last, third-last, fifth-last etc)
+		then the number of inversions in a solvable situation is even.
+	*/
+	if size%2 == 1 {
+		if countInversions(givenTab)%2 == countInversions(result)%2 {
+			return true
+		}
+	} else {
+		rowFromBottom := size - (utils.GetEmptyTile(givenTab) / size)
+		if (size % 4) == 2 {
+			rowFromBottom -= 1
+		}
+		if rowFromBottom%2 == 1 {
+
+			if countInversions(givenTab)%2 != countInversions(result)%2 {
+				return true
+			}
+		} else {
+
+			if countInversions(givenTab)%2 == countInversions(result)%2 {
+				return true
+			}
 		}
 	}
-	return inversions%2 == inversions_result%2
+	return false
 }
 
 func BuildCorrectResult(size int16) []int16 {
