@@ -43,6 +43,22 @@ func CalculateEuclideanDistance(tab []int16, result []int16) int16 {
 	return (int16(dist))
 }
 
+func CalculateHammingDistance(tab []int16, result []int16) int16 {
+	inverseGoal := invert(result)
+	var i int16
+	var misplaced int16
+	var destIndex int16
+	for i = 0; i < int16(len(tab)); i++ {
+		if tab[i] != 0 {
+			destIndex = inverseGoal[tab[i]]
+			if destIndex != i {
+				misplaced++
+			}
+		}
+	}
+	return misplaced
+}
+
 func CalculateLinearConflict(tab []int16, result []int16) int16 {
 	manhattanDistance := CalculateManhattanDistance(tab, result)
 	linearConflict := linearConflict(tab, result)

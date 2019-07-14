@@ -45,6 +45,25 @@ func TestEuclidean(t *testing.T) {
 	}
 }
 
+func TestHamming(t *testing.T) {
+	var res []int16
+	var dist int16
+	a := []int16{3, 0, 5, 8, 4, 1, 6, 2, 7}
+	res = checker.BuildCorrectResult(3)
+	utils.InitUtils(res)
+	dist = CalculateHammingDistance(a, res)
+	if dist != 7 {
+		t.Errorf("Error: Hamming Distance should be 7 and not %d. The 8 is the only one not misplaced", dist)
+	}
+	b := []int16{8, 2, 7, 4, 1, 0, 10, 15, 3, 9, 6, 13, 11, 5, 12, 14}
+	res = checker.BuildCorrectResult(4)
+	utils.InitUtils(res)
+	dist = CalculateHammingDistance(b, res)
+	if dist != 13 {
+		t.Errorf("Error: Hamming Distance should be 13 and not %d", dist)
+	}
+}
+
 func TestInvert(t *testing.T) {
 	a := []int16{1, 2, 3, 8, 0, 4, 7, 6, 5}
 	b := invert(a)
