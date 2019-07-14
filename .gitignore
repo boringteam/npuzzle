@@ -12,8 +12,6 @@
 *.out
 
 #npuzzle
-npuzzle
-n-puzzle
 *.pdf
 .DS_Store
 generator
