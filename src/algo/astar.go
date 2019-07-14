@@ -3,8 +3,8 @@ package algo
 import (
 	"crypto/md5"
 	"fmt"
-	utils "npuzzle/utils"
-	vi "npuzzle/visual"
+	utils "utils"
+	vi "visual"
 	"reflect"
 	"runtime"
 	"strings"

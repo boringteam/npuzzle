@@ -1,8 +1,8 @@
 package algo
 
 import (
-	"npuzzle/checker"
-	"npuzzle/utils"
+	"checker"
+	"utils"
 	"testing"
 	"reflect"
 )

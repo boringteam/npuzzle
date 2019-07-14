@@ -2,7 +2,7 @@ package algo
 
 import (
 	"fmt"
-	"npuzzle/checker"
+	"checker"
 	"reflect"
 	"testing"
 )

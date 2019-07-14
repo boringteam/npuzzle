@@ -1,18 +1,19 @@
 PROJECTNAME := $(shell basename "$(PWD)")
-PKGS=npuzzle/algo npuzzle/checker npuzzle/utils
+GOPATH := ${PWD}
+PKGS=algo checker utils
 
 # Go parameters
 GOBASE := $(shell pwd)
-GOBIN := $(GOBASE)/bin
-GOSRC := $(GOBASE)/src
-PROJECTBASE := npuzzle
 GOCMD=go
 GOBUILD=$(GOCMD) build
 GOCLEAN=$(GOCMD) clean
 GOTEST=$(GOCMD) test
 GOGET=$(GOCMD) get
-GOFILES := $(PROJECTBASE)/npuzzle
 BINARY_NAME=$(PROJECTNAME).out
+
+export GOPATH
+
+GOFILES=npuzzle
 
 all: deps build
 
