@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"npuzzle/algo"
-	"npuzzle/checker"
-	"npuzzle/utils"
+	"algo"
+	"checker"
+	"utils"
 	"os"
 )
 

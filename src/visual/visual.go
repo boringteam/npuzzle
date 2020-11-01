@@ -2,7 +2,7 @@ package utils
 
 import (
 	"fmt"
-	"npuzzle/utils"
+	"utils"
 	"time"
 	"strconv"
 	"log"

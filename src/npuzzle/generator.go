@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"npuzzle/checker"
-	"npuzzle/utils"
+	"checker"
+	"utils"
 	"github.com/akamensky/argparse"
 	"math/rand"
 	"os"

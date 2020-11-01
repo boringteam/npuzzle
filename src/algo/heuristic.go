@@ -2,7 +2,7 @@ package algo
 
 import (
 	"math"
-	"npuzzle/utils"
+	"utils"
 )
 
 func CalculateManhattanDistance(tab []int16, result []int16) int16 {
