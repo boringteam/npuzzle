@@ -1,8 +1,9 @@
 package checker
 
 import (
-	"utils"
 	"reflect"
+
+	"github.com/boringteam/npuzzle/src/utils"
 )
 
 func CheckResult(current []int16, result []int16) bool {

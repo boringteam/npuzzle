@@ -2,10 +2,12 @@ package main
 
 import (
 	"fmt"
-	"algo"
-	"checker"
-	"utils"
 	"os"
+
+	"github.com/boringteam/npuzzle/src/utils"
+
+	"github.com/boringteam/npuzzle/src/algo"
+	"github.com/boringteam/npuzzle/src/checker"
 )
 
 func main() {

@@ -2,13 +2,14 @@ package main
 
 import (
 	"fmt"
-	"checker"
-	"utils"
-	"github.com/akamensky/argparse"
 	"math/rand"
 	"os"
 	"strconv"
 	"time"
+
+	"github.com/akamensky/argparse"
+	"github.com/boringteam/npuzzle/src/checker"
+	"github.com/boringteam/npuzzle/src/utils"
 )
 
 func makePuzzle(size int, solvable bool, iterations int, visual bool) []int16 {
@@ -45,7 +46,7 @@ func GenerateNPuzzle() ([]int16, string, bool) {
 	i := parser.String("i", "iterations", &argparse.Options{Help: "Number of iterations to shuffle the puzzle"})
 	f := parser.String("f", "file", &argparse.Options{Help: "Path to the txt file to read from"})
 	v := parser.Flag("v", "visual", &argparse.Options{Help: "If the size of the puzzle is <= 30, get a nice visual of the white tile move"})
-	he := parser.String("c", "heuristic", &argparse.Options{Required: false, Help: "Choose among `manhattan`, `euclidean` `hamming` or `linearconflict` heuristics", Default:"manhattan"})
+	he := parser.String("c", "heuristic", &argparse.Options{Required: false, Help: "Choose among `manhattan`, `euclidean` `hamming` or `linearconflict` heuristics", Default: "manhattan"})
 	puzzle := []int16{}
 	size := 3
 

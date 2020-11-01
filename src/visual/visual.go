@@ -2,10 +2,11 @@ package utils
 
 import (
 	"fmt"
-	"utils"
-	"time"
-	"strconv"
 	"log"
+	"strconv"
+	"time"
+
+	"github.com/boringteam/npuzzle/src/utils"
 	ui "github.com/gizak/termui/v3"
 	"github.com/gizak/termui/v3/widgets"
 )
@@ -45,14 +46,14 @@ func CreateVisual(tab []int16, directions []string, rounds int, maxLen int, full
 		case "q", "<C-c>":
 			return
 		case "<Left>":
-			if i > 0 && i <= len(fullPathTab){
+			if i > 0 && i <= len(fullPathTab) {
 				i--
 				ui.Clear()
 				renderTab(i)
 			}
 			ui.Render(header, solution)
 		case "<Right>":
-			if i >= -1 && i < len(fullPathTab) - 1{
+			if i >= -1 && i < len(fullPathTab)-1 {
 				i++
 				ui.Clear()
 				renderTab(i)
@@ -100,13 +101,13 @@ func setPuzzle(tab []int16, i int, directions []string, fullPath []int) {
 		puzzle.Title = "Initial Puzzle"
 	}
 	lenLine := int(utils.Size) * 10
-	lenRow := int(utils.Size) * 2 + 1
+	lenRow := int(utils.Size)*2 + 1
 	puzzle.TextStyle = ui.NewStyle(ui.ColorWhite)
 	puzzle.Rows = printPuzzle(tab)
 	puzzle.RowSeparator = true
 	puzzle.BorderStyle = ui.NewStyle(ui.ColorGreen)
 	puzzle.TextAlignment = ui.AlignCenter
-	puzzle.SetRect(50, 5, 50 + lenLine, 5 + lenRow)
+	puzzle.SetRect(50, 5, 50+lenLine, 5+lenRow)
 	puzzle.FillRow = true
 	ui.Render(puzzle)
 }

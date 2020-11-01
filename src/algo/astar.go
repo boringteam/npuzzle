@@ -3,12 +3,13 @@ package algo
 import (
 	"crypto/md5"
 	"fmt"
-	utils "utils"
-	vi "visual"
 	"reflect"
 	"runtime"
 	"strings"
 	"time"
+
+	utils "github.com/boringteam/npuzzle/src/utils"
+	vi "github.com/boringteam/npuzzle/src/visual"
 )
 
 var timeComplexity int = 0

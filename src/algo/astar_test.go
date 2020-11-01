@@ -2,9 +2,10 @@ package algo
 
 import (
 	"fmt"
-	"checker"
 	"reflect"
 	"testing"
+
+	"github.com/boringteam/npuzzle/src/checker"
 )
 
 func TestTabInSlice(t *testing.T) {
